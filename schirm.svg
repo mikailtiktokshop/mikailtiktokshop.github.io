@@ -1,8 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><defs>
-<radialGradient id="s1" cx=".35" cy=".2" r=".9"><stop offset="0" stop-color="#ff8fa8"/><stop offset=".5" stop-color="#e83a6b"/><stop offset="1" stop-color="#9c1846"/></radialGradient>
-<linearGradient id="s2" x1="0" x2="1"><stop offset="0" stop-color="#8a5a3c"/><stop offset="1" stop-color="#5a3420"/></linearGradient></defs>
-<path d="M32 6C17 6 5 17 4 31c4-3 8-3 12 0 4-3 8-3 12 0 4-3 8-3 12 0 4-3 8-3 12 0 4-3 8-3 8 0C59 17 47 6 32 6z" fill="url(#s1)"/>
-<path d="M32 6c-6 6-8 15-8 25M32 6c6 6 8 15 8 25" fill="none" stroke="#7d1236" stroke-width="1.6" opacity=".5"/>
-<path d="M14 18c4-6 10-9 16-9" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" opacity=".6"/>
-<path d="M32 4v2" stroke="#5a3420" stroke-width="3" stroke-linecap="round"/>
-<path d="M32 31v20c0 5 3 7 6 7s6-2 6-6" fill="none" stroke="url(#s2)" stroke-width="3.6" stroke-linecap="round"/></svg>
+<radialGradient id="u1" cx=".32" cy=".15" r="1"><stop offset="0" stop-color="#ffa3b8"/><stop offset=".45" stop-color="#ef3f6c"/><stop offset="1" stop-color="#9a1542"/></radialGradient>
+<linearGradient id="u2" x1="0" x2="1"><stop offset="0" stop-color="#9b6644"/><stop offset="1" stop-color="#5a3420"/></linearGradient>
+<linearGradient id="u3" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stop-color="#7d1236" stop-opacity="0"/><stop offset="1" stop-color="#7d1236" stop-opacity=".35"/></linearGradient></defs>
+<path d="M32 30v21c0 5.2 3 7.4 6.3 7.4S44.6 56 44.6 51" fill="none" stroke="url(#u2)" stroke-width="3.8" stroke-linecap="round"/>
+<path d="M32 6C16.5 6 4.5 17.3 3.5 31.5c4.2-3.2 8.4-3.2 12.6 0 4.2-3.2 8.4-3.2 12.6 0 4.2-3.2 8.4-3.2 12.6 0 4.2-3.2 8.4-3.2 12.6 0 3.8-3 6.6-3 7.6 0C59.5 17.3 47.5 6 32 6z" fill="url(#u1)"/>
+<path d="M3.5 31.5c4.2-3.2 8.4-3.2 12.6 0 4.2-3.2 8.4-3.2 12.6 0 4.2-3.2 8.4-3.2 12.6 0 4.2-3.2 8.4-3.2 12.6 0 3.8-3 6.6-3 7.6 0-1-5-3.5-9-7-12C46 23 39 25 32 25s-14-2-19.5-5.5c-3.5 3-7.5 7-9 12z" fill="url(#u3)"/>
+<path d="M32 6c-6.5 6.5-9 15.5-9 25M32 6c6.5 6.5 9 15.5 9 25M32 6c-11 4-16 13-16.5 25M32 6c11 4 16 13 16.5 25" fill="none" stroke="#8d1640" stroke-width="1.2" opacity=".45"/>
+<path d="M13 18.5c4.2-6.4 10.5-9.6 17-9.8" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+<circle cx="32" cy="4.6" r="2.2" fill="#5a3420"/></svg>
