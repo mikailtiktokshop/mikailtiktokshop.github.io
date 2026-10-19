@@ -471,7 +471,9 @@ html{scroll-padding-top:var(--hdr,88px)}
     abort(); document.querySelectorAll('.home').forEach(function(h){h.classList.remove('enter')}); // kein Hero-Einflug beim Sprachwechsel
     l=d.getAttribute('data-l')==='de'?'en':'de'; d.setAttribute('data-l',l); d.lang=l;
     try{ sessionStorage.setItem('lang',l); }catch(e){}
-    document.querySelectorAll('.rv').forEach(function(x){x.classList.remove('in')}); reveal(); if(window.__rx)window.__rx();
+    document.querySelectorAll('.rv').forEach(function(x){x.classList.remove('in')}); reveal();
+    document.querySelectorAll('[data-count],.bars,.gauge').forEach(function(e){e.__t0=0}); // neu sichtbarer Zwilling zählt neu
+    if(window.__rx)window.__rx();
   });
   document.getElementById('theme').addEventListener('click',function(){
     var t=d.getAttribute('data-t')==='dark'?'light':'dark'; d.setAttribute('data-t',t);
@@ -492,14 +494,17 @@ html{scroll-padding-top:var(--hdr,88px)}
   function reveal(){ els.forEach(function(e){ if(io){io.observe(e)} else {e.classList.add('in')} }); }
   reveal();
   // Startseite: alles an die Scroll-Position gekoppelt (vor und zurück)
-  var still=matchMedia('(prefers-reduced-motion: reduce)').matches, ticking=false, job=null;
+  var still=matchMedia('(prefers-reduced-motion: reduce)').matches, ticking=false, job=null, pump=0, live=false;
   function cl(x){return x<0?0:x>1?1:x}
   function ease(x){return 1-Math.pow(1-x,3)}
+  // Zähler/Balken/Gauge: Zeit statt Scroll – 1,5 s ab dem ersten Auslösen (o.__t0), off = zurück auf 0; laufender Timer hält frame() am Leben
+  function prog(o,trig,off,now){ if(still) return 1; if(off) o.__t0=0; else if(trig&&!o.__t0) o.__t0=now;
+    var t=o.__t0?cl((now-o.__t0)/1500):0; if(o.__t0&&t<1) live=true; return t; }
   var fmt=function(n){return Math.round(n).toLocaleString(d.lang==='de'?'de-DE':'en-US')};
   // virtueller Scroll-Versatz je Abschnitt: hold = gilt als noch unter dem Bildschirm, play = Oberkante folgt der Kurve __virt
   function vo(sec,H,r){ if(sec.__m==='hold') sec.__vo=Math.max(0,H-r.top); else if(sec.__m==='play') sec.__vo=Math.max(0,sec.__virt-r.top); return sec.__vo||0; }
   function frame(){
-    var H=innerHeight, max=d.scrollHeight-H, v=0;
+    var H=innerHeight, max=d.scrollHeight-H, v=0, now=performance.now(); live=false;
     document.querySelectorAll('.sx').forEach(function(sec){
       if(sec.offsetParent===null) return;
       var r=sec.getBoundingClientRect(); v=vo(sec,H,r); var p=still?1:cl((H-r.top-v)/(H*0.85));
@@ -509,11 +514,14 @@ html{scroll-padding-top:var(--hdr,88px)}
       var art=sec.querySelector('.art'), ap=p; if(art){ var ar=art.getBoundingClientRect(); ap=still?1:cl((H-ar.top-v)/(H*0.75));
         var q=ease(cl(ap*1.15)), rot=sec.classList.contains('flip')?-7:7;
         art.style.opacity=q; art.style.transform='translateY('+((1-q)*100).toFixed(1)+'px) rotate('+((1-q)*rot).toFixed(2)+'deg) scale('+(0.88+0.12*q).toFixed(3)+')'; }
-      var k=cl((ap-0.3)/0.6);
-      sec.querySelectorAll('.bars span').forEach(function(e,i){ var h=parseFloat(e.style.getPropertyValue('--h'));
-        e.style.height=(h*ease(cl(k*1.4-i*0.08))).toFixed(1)+'%'; });
-      sec.querySelectorAll('.gauge .fg').forEach(function(e){ e.style.strokeDashoffset=(302-166*ease(k)).toFixed(1); });
-      sec.querySelectorAll('[data-count]').forEach(function(e){ e.textContent=fmt(+e.getAttribute('data-count')*ease(k)); });
+      // zählt hoch, sobald im Bild (Balken/Gauge: ganz drin; Text-Zähler schon etwas früher); jedes Element für sich: wieder unter dem Bild (auch Nav-hold): auf 0
+      sec.querySelectorAll('.bars').forEach(function(b){ var br=b.getBoundingClientRect(), t=prog(b,br.bottom+v<H,br.top+v>=H,now);
+        [].forEach.call(b.children,function(e,i){ var h=parseFloat(e.style.getPropertyValue('--h'));
+          e.style.height=(h*ease(cl(t*1.4-i*0.08))).toFixed(1)+'%'; }); });
+      sec.querySelectorAll('.gauge').forEach(function(g){ var gr=g.getBoundingClientRect(), t=prog(g,gr.bottom+v<H,gr.top+v>=H,now);
+        g.querySelector('.fg').style.strokeDashoffset=(302-166*ease(t)).toFixed(1); });
+      sec.querySelectorAll('[data-count]').forEach(function(e){ var et=e.getBoundingClientRect().top+v, t=prog(e,et<(e.closest('.sx-txt')?0.95:0.85)*H,et>=H,now);
+        e.textContent=fmt(+e.getAttribute('data-count')*ease(t)); });
       sec.querySelectorAll('.task,.slot').forEach(function(e,i){ e.classList.toggle('on',ap>0.35+i*0.09); });
       sec.querySelectorAll('.par').forEach(function(e){ var c=r.top+r.height/2-H/2, sp=+(e.getAttribute('data-sp')||-.08);
         e.style.translate='0 '+(still?0:c*sp).toFixed(1)+'px'; });
@@ -535,6 +543,7 @@ html{scroll-padding-top:var(--hdr,88px)}
       var bar=nav.querySelector('.secbar i');
       if(bar) bar.style.height=(max>0?Math.min(scrollY/max,1)*100:0).toFixed(1)+'%'; }
     ticking=false;
+    if(live&&!pump) pump=requestAnimationFrame(function(){ pump=0; frame(); }); // weiterzählen auch ohne Scrollen
   }
   // Klick auf Nummer: eigene weiche Scroll-Fahrt; Ziel hält (hold), bis es ins Bild kommt, dann 1 s von vorn (play)
   function ez(x){return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2} // easeInOutCubic
