@@ -170,6 +170,7 @@ animation:float2 6s ease-in-out infinite}
 .sx.in .sx-txt>*,.sx.in .art{opacity:1;transform:none}
 .sx.in .sx-txt>*:nth-child(2){transition-delay:.1s}.sx.in .sx-txt>*:nth-child(3){transition-delay:.2s}
 .sx.in .sx-txt>*:nth-child(4){transition-delay:.3s}.sx.in .sx-txt>*:nth-child(5){transition-delay:.4s}
+.sx.in .sx-txt>.big{transition-delay:0s}
 .par{will-change:transform}
 .sx .f1{top:1%;left:0}.sx .f3{bottom:3%}
 /* Handy 2: Aufgaben werden abgehakt */
@@ -206,6 +207,7 @@ background:radial-gradient(circle at 35% 30%,#fff3c4,#ffc845 55%,#e09a12);box-sh
 .pop{animation:none}.sx.in .pop{animation:pop 5s ease-in-out infinite}
 @keyframes pop{0%,10%{opacity:0;transform:translateY(10px) scale(.95)}18%,80%{opacity:1;transform:none}92%,100%{opacity:0;transform:translateY(-8px)}}
 .sx .sx-txt>*,.sx .art{transition:opacity .18s linear,transform .18s linear}
+.sx .sx-txt>.big{transition:transform .18s linear}
 .bars span,.gauge .fg{transition:none}
 /* Planer */
 .day{position:absolute;left:12px;right:12px;top:46px;color:#fff}
@@ -510,7 +512,8 @@ html{scroll-padding-top:var(--hdr,88px)}
       var r=sec.getBoundingClientRect(); v=vo(sec,H,r); var p=still?1:cl((H-r.top-v)/(H*0.85));
       sec.classList.toggle('in',p>0.75);
       [].forEach.call(sec.querySelectorAll('.sx-txt>*'),function(e,i){ var er=e.getBoundingClientRect(); var q=still?1:ease(cl((H-er.top-v)/(H*0.28)));
-        e.style.opacity=q; e.style.transform='translateY('+((1-q)*34).toFixed(1)+'px)'; });
+        var o=e.querySelector('[data-count]')?(still?1:ease(cl((H-er.top-v)/(H*0.05)))):q; /* Zähler-Zeile: Deckkraft schon an der Zähl-Startlinie voll */
+        e.style.opacity=o; e.style.transform='translateY('+((1-q)*34).toFixed(1)+'px)'; });
       var art=sec.querySelector('.art'), ap=p; if(art){ var ar=art.getBoundingClientRect(); ap=still?1:cl((H-ar.top-v)/(H*0.75));
         var q=ease(cl(ap*1.15)), rot=sec.classList.contains('flip')?-7:7;
         art.style.opacity=q; art.style.transform='translateY('+((1-q)*100).toFixed(1)+'px) rotate('+((1-q)*rot).toFixed(2)+'deg) scale('+(0.88+0.12*q).toFixed(3)+')'; }
