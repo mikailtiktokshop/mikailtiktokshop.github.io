@@ -110,6 +110,11 @@ html[data-l="de"] .fest>[data-lang="en"],html[data-l="en"] .fest>[data-lang="de"
 .ni .g{fill:currentColor;stroke-width:1.5}
 h1,h2,h3{margin:0;letter-spacing:-.028em;font-weight:700;text-wrap:balance}
 h1{font-size:clamp(40px,6vw,72px);line-height:1.05}
+/* Hero-Zeilen immer EINE Reihe (Mo 18.11. ~19:00, Punkt j): längste Zeile beider Sprachen „One click to TikTok.“ = 8,86 em
+   (Plus Jakarta Sans 700, −0,028 em, gemessen 18.11.) + 4 % Luft = HERO_ZEILE_EM. Bis 600 px (Rand 2 × 20 px) wird die Schrift
+   so klein, dass sie passt (390 px: 38 px statt 40 px, 320 px: 30 px); ab 601 px reicht clamp(40px,6vw,72px) immer. */
+#h-start .hz{white-space:nowrap}
+@media (max-width:600px){#h-start{font-size:min(40px,calc((100vw - 40px) / 9.2))}}
 h2{font-size:clamp(30px,4.2vw,50px);line-height:1.1}
 h3{font-size:21px;font-weight:700;letter-spacing:-.015em;line-height:1.28}
 .lead{font-size:clamp(17px,1.8vw,20px);line-height:1.55;color:var(--muted);margin:22px 0 0;text-wrap:pretty}
@@ -269,29 +274,37 @@ section{padding:120px 0}
    sichtbar (clip-path inset, kein Layout). Linie/Griff per transform (--p = Stellung in %). touch-action:pan-y: senkrechtes
    Wischen scrollt die Seite, Ziehen erst ab klar waagrechter Bewegung (Skript). */
 .vgl{display:grid;justify-items:center;gap:14px;width:100%}
-.vn{--p:50%;position:relative;width:300px;max-width:100%;aspect-ratio:9/16;border-radius:16px;overflow:hidden;touch-action:pan-y;
+.vn{--p:50%;position:relative;width:340px;max-width:100%;aspect-ratio:9/16;border-radius:16px;overflow:hidden;touch-action:pan-y;
  -webkit-user-select:none;user-select:none;cursor:ew-resize;box-shadow:0 18px 40px -22px rgba(0,0,0,.5);isolation:isolate;background:#1C1C1E}
 .vn .folie{border-radius:inherit}
 .vn img{-webkit-user-drag:none;user-drag:none}
 .vn-o{clip-path:inset(0 0 0 var(--p))}
 .vn-l{position:absolute;top:0;bottom:0;left:0;width:100%;z-index:3;pointer-events:none;transform:translateX(var(--p))}
 .vn-l::before{content:"";position:absolute;top:0;bottom:0;left:-1px;width:2px;background:#fff;box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 0 10px rgba(0,0,0,.25)}
-.vn-g{position:absolute;left:-22px;top:50%;width:44px;height:44px;margin-top:-22px;border-radius:50%;background:rgba(255,255,255,.96);color:#1D1D1F;
+.vn-g{position:absolute;left:-26px;top:50%;width:52px;height:52px;margin-top:-26px;border-radius:50%;background:rgba(255,255,255,.96);color:#1D1D1F;
  display:grid;place-items:center;pointer-events:auto;cursor:ew-resize;box-shadow:0 4px 14px rgba(0,0,0,.28),0 0 0 .5px rgba(0,0,0,.12);touch-action:pan-y}
-.vn-g svg{width:22px;height:22px}
+.vn-g svg{width:24px;height:24px}
 .vn-g:focus-visible{outline:2px solid var(--red2);outline-offset:3px;border-radius:50%}
 /* Schild „Verschieben“ am Griff: erscheint mit der Hinweis-Bewegung, verschwindet beim Ziehen oder nach ~3 s */
 .vn-tipp{position:absolute;left:0;top:calc(50% + 32px);transform:translateX(-50%);display:inline-flex;align-items:center;gap:6px;white-space:nowrap;
  font-size:14px;font-weight:600;color:#fff;background:rgba(14,14,16,.78);padding:6px 11px;border-radius:999px;opacity:0;transition:opacity .3s;
  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 .vn-tipp.an{opacity:1}
-/* Etiketten oben links/rechts; blenden aus, wenn die Linie nah ist (Klasse .weg vom Skript) */
-.vn-et{position:absolute;top:22px;z-index:2;max-width:42%;padding:5px 9px;border-radius:9px;background:rgba(14,14,16,.66);color:#fff;line-height:1.2;
- -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:opacity .2s}
-.vn-et.l{left:10px}.vn-et.r{right:10px;text-align:right}
-.vn-et b{display:block;font-size:12px;font-weight:700}
-.vn-et small{display:block;font-size:11px;font-weight:500;opacity:.85}
-.vn-et.weg{opacity:0}
+/* nah am Rand würde das Schild aus dem Rahmen ragen (abgeschnitten „erschieben“) -> dort ausblenden (Klasse .rand vom Skript) */
+.vn-tipp.an.rand{opacity:0}
+/* Etiketten (Mikail 18.11. ~21:10): steht der Schieber auf „Vorher“ (Linie rechts der Mitte, Vorher füllt das Bild), ist NUR
+   „Vorher“ oben LINKS zu sehen; auf „Nachher“ (Linie in der Mitte oder links) NUR „Nachher“ oben RECHTS. Nie beide: das alte
+   blendet in 0,18 s aus, erst DANACH blendet das neue ein (Verzögerung 0,18 s). Ohne JS beide (Schieber geht dann nicht). */
+.vn-et{position:absolute;top:14px;z-index:2;max-width:46%;padding:7px 11px;border-radius:10px;background:rgba(14,14,16,.7);color:#fff;line-height:1.2;
+ -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);transition:opacity .18s ease}
+.js .vn-et{opacity:0}
+.js .vn-et.an{opacity:1;transition:opacity .22s ease .18s}
+.vn-et.l{left:12px}.vn-et.r{right:12px;text-align:right;background:rgba(15,110,68,.88)}
+.vn-et b{display:block;font-size:14px;font-weight:700}
+.vn-et small{display:block;font-size:14px;font-weight:500;opacity:.9}
+/* Sprachwahl-Zeile (Mikail 18.11. ~21:35): zwei Teile, die nie in sich umbrechen -> höchstens 2 Zeilen; rechts darf das Etikett breiter
+   sein, weil „Vorher“ und „Nachher“ nie gleichzeitig zu sehen sind */
+.vn-et.r{max-width:calc(100% - 24px)}.vn-et .nw{white-space:nowrap}   /* Fable 18.11.: alles ≥ 14 px, rechts volle Breite (nie mit „Vorher“ zugleich) */
 /* Karussell (Nutzer 17.11. ~21:10: „links, rechts so Pfeile … mehrere Slideshows vergleichen“): je Paar eine Schicht, nur die
    aktive sichtbar ([hidden] = nicht geladen, loading=lazy); beim Wechsel liegt die neue kurz unsichtbar oben (.lade), bis
    ihre Bilder fertig sind – kein schwarzes Aufblitzen. Helle Folien (TikTok hell): Striche + #werbung dunkel. */
@@ -312,7 +325,7 @@ section{padding:120px 0}
 .vn[data-modus=hell] .vn-mark{background:#161823;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.18)}
 .vgl-nav{display:none;align-items:center;justify-content:center;gap:14px}
 .js .vgl-nav{display:flex}
-.vgl-pf{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;padding:0;cursor:pointer;color:var(--text);
+.vgl-pf{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;padding:0;cursor:pointer;color:var(--text);
  background:var(--card);border:1px solid var(--line2);box-shadow:0 1px 2px rgba(0,0,0,.06)}
 .vgl-pf svg{width:20px;height:20px}
 .vgl-pf:hover{border-color:var(--line3)}
@@ -326,6 +339,43 @@ section{padding:120px 0}
 .vgl figcaption b{color:var(--text);font-weight:600}
 .vgl figcaption .nw{white-space:nowrap}
 @media (max-width:600px){.vn{width:100%}}
+
+/* Rohvideo-Vergleich (Punkt n): zwei 9:16-Clips nebeneinander (auch am Handy – direkte Gegenüberstellung), Pfeil dazwischen,
+   Etikett oben links, Dauer oben rechts, Knopf unten (≥ 44 px). Nur transform/opacity, keine Bewegung bei „Weniger Bewegung“. */
+.rv{margin:8px auto 0;padding:0 0 96px;max-width:860px}
+.rv .mitte{max-width:640px}
+.rv-h{margin:6px 0 0;font-size:clamp(28px,4.2vw,44px);font-weight:800;letter-spacing:-.035em;line-height:1.08}
+.rv-g{display:grid;grid-template-columns:minmax(0,300px) auto minmax(0,300px);grid-template-rows:auto auto;justify-content:center;align-items:start;column-gap:20px;row-gap:12px;margin-top:40px}
+.rv-c{margin:0;display:grid;gap:12px;justify-items:center;grid-row:1/3;grid-template-rows:subgrid}
+.rv-pf{grid-row:1;align-self:center}
+.rv-r{position:relative;width:100%;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:#1C1C1E;isolation:isolate;
+ box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 24px 48px -26px rgba(0,0,0,.6),0 0 0 1px var(--line)}
+.rv-r video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#1C1C1E}
+.js .rv-r video::-webkit-media-controls{display:none!important}
+.rv-et,.rv-d{position:absolute;top:12px;z-index:2;padding:5px 10px;border-radius:9px;font-size:14px;font-weight:700;line-height:1.2;color:#fff;
+ background:rgba(14,14,16,.66);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);pointer-events:none}
+.rv-et{left:12px;max-width:calc(100% - 84px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rv-d{right:12px;font-variant-numeric:tabular-nums}
+.rv-zus{font-weight:600;opacity:.85}
+.rv-nachher .rv-et{background:rgba(15,110,68,.86)}
+.rv-k{display:none;position:absolute;left:50%;bottom:14px;z-index:2;transform:translateX(-50%);min-height:44px;padding:0 16px 0 13px;border:0;border-radius:999px;
+ align-items:center;gap:7px;font:inherit;font-size:14px;font-weight:700;color:#1D1D1F;background:rgba(255,255,255,.94);cursor:pointer;
+ box-shadow:0 6px 18px -6px rgba(0,0,0,.45);transition:transform .2s cubic-bezier(.2,.8,.2,1),opacity .2s}
+.js .rv-k{display:inline-flex}
+.rv-k>span{display:none;align-items:center;gap:7px;white-space:nowrap}
+.rv-k[data-st=p] .k-p,.rv-k[data-st=an] .k-an,.rv-k[data-st=aus] .k-aus{display:inline-flex}
+.rv-k svg{width:18px;height:18px;flex:none}
+.rv-k:focus-visible{outline:2px solid var(--red2);outline-offset:3px}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){.rv-k:hover{transform:translateX(-50%) scale(1.04)}}
+.rv-c figcaption{font-size:14px;line-height:1.45;color:var(--muted);text-align:center;max-width:280px}
+.rv-pf{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;color:var(--text);background:var(--card);border:1px solid var(--line2)}
+.rv-pf svg{width:20px;height:20px}
+.rv-fuss{margin:28px auto 0;max-width:620px;font-size:14px;line-height:1.5;color:var(--dim);text-align:center}
+@media (max-width:600px){.rv{padding-bottom:72px}.rv-g{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;margin-top:28px}
+ .rv-pf{width:30px;height:30px}.rv-pf svg{width:16px;height:16px}.rv-r{border-radius:14px}
+ .rv-et,.rv-d{top:8px;font-size:14px;padding:4px 8px}.rv-et{left:8px;max-width:calc(100% - 16px)}.rv-zus{display:none}
+ .rv-d{right:auto;left:8px;top:38px}   /* Handy: Dauer unter das Etikett (14 px passen nicht nebeneinander) */
+ .rv-k{bottom:10px;width:44px;height:44px;padding:0;justify-content:center}.rv-k>span>span{display:none}
+ .rv-c figcaption{font-size:14px}}
 
 /* Fakten-Leiste */
 .fakten{padding:84px 0 0}
@@ -470,23 +520,28 @@ html:not(.js) .umschalter{display:none}
    wenn man mit der Maus rübergeht.“): 2-px-Rand (Innenabstand −1 px, damit die Zeilen mit den Nachbarn bündig bleiben),
    roter Schein, kräftiges Abzeichen; Hervorheben/Hover NUR per transform (kein Layout-Sprung), Animationen nur mit Maus
    und ohne „Bewegung reduzieren“. */
-.pk{transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+/* Hover seit Mo 18.11. ~18:40 (Punkt e): KEIN roter Rand beim Drüberfahren – die Karte wird leicht größer, der Preis auch und
+   bekommt kurz einen grünen Schimmer. Nur transform/opacity (kein Layout, keine Rand-/Schatten-Animation); bei „Weniger Bewegung“
+   keine Bewegung und kein Schimmer. Schimmer (Mikail 18.11. ~20:55) NUR über der Preis-Zahl, schnell (0,5 s). „Beliebt“ (roter 2-px-Rand bei Komplett) bleibt dauerhaft. */
+.pk{transition:transform .3s cubic-bezier(.2,.8,.2,1)}
 .pk.hot{border:2px solid rgba(232,52,74,.85);padding:31px 29px;box-shadow:var(--cardsh),0 0 0 4px rgba(232,52,74,.10),0 18px 48px -18px rgba(232,52,74,.55)}
-.pk.hot::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;
- background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.16) 50%,transparent 65%) no-repeat;background-size:260% 100%;background-position:130% 0}
+.pk .pr .z{display:inline-block;position:relative;transform-origin:0 80%;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+/* Schimmer NUR auf den Ziffern selbst (Mikail 18.11. ~21:10): Verlauf per background-clip:text auf den Glyphen, kein Feld
+   dahinter. Ohne Hover normale Textfarbe (voller Kontrast); beim Hover läuft ein grünes Band einmal in 0,5 s über die Ziffern
+   und endet wieder in der Textfarbe. Bei „Weniger Bewegung“ / ohne Maus gilt die Regel gar nicht (kein Schimmer). */
+
 .pk .nm{display:flex;align-items:center;gap:10px}
 .pk .badge{font-size:14px;font-weight:700;color:var(--redt);background:var(--redbg);padding:3px 9px;border-radius:7px}
 .pk.hot .badge{color:#fff;background:var(--btn);box-shadow:0 4px 14px -4px rgba(232,52,74,.7);padding:4px 11px;letter-spacing:.01em}
 @media (min-width:981px){.pk.hot{transform:translateY(-8px)}}
 @media (hover:hover) and (prefers-reduced-motion:no-preference){
- .pk:hover{transform:translateY(-6px);border-color:rgba(232,52,74,.45);box-shadow:var(--cardsh),0 22px 44px -20px rgba(0,0,0,.45)}
- .pk.hot:hover{transform:translateY(-12px) scale(1.015);border-color:var(--red2);box-shadow:var(--cardsh),0 0 0 5px rgba(232,52,74,.16),0 26px 60px -18px rgba(232,52,74,.7)}
- .pk.hot:hover::after{opacity:1;animation:pk-glanz 1.6s ease-in-out infinite}
- .pk.hot:hover .badge{animation:pk-puls 1.2s ease-in-out infinite}
+ .pk:hover{transform:scale(1.02)}
+ .pk:hover .pr .z{transform:scale(1.06)}
+ .pk:hover .pr .z{background:linear-gradient(100deg,currentColor 0 38%,var(--ok) 50%,currentColor 62% 100%) 100% 0/260% 100% no-repeat;
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:pk-schimmer .5s ease-out 1 both}
 }
-@media (hover:hover) and (prefers-reduced-motion:no-preference) and (max-width:980px){.pk.hot:hover{transform:translateY(-6px) scale(1.01)}}
-@keyframes pk-glanz{from{background-position:130% 0}to{background-position:-30% 0}}
-@keyframes pk-puls{0%,100%{transform:scale(1);box-shadow:0 4px 14px -4px rgba(232,52,74,.7)}50%{transform:scale(1.08);box-shadow:0 0 0 6px rgba(232,52,74,.18),0 4px 18px -4px rgba(232,52,74,.9)}}
+@media (hover:hover) and (prefers-reduced-motion:no-preference) and (min-width:981px){.pk.hot:hover{transform:translateY(-8px) scale(1.02)}}
+@keyframes pk-schimmer{0%{background-position:100% 0}100%{background-position:0 0}}
 .pk .fu{margin:6px 0 0;color:var(--muted);font-size:15px}
 .pk .pr{margin:26px 0 0}
 .pk .pr>span{display:inline-flex;align-items:baseline;gap:8px;flex-wrap:wrap}
@@ -509,6 +564,11 @@ html:not(.js) .umschalter{display:none}
 .extra b{font-size:16px}
 .extra p{margin:2px 0 0;color:var(--muted);font-size:15px}
 .extra .ep{margin-left:auto;font-size:22px;font-weight:800;letter-spacing:-.02em;white-space:nowrap}
+.extra .ex-ic{flex:none;display:grid;place-items:center;width:40px;height:40px;border-radius:11px;background:var(--redbg);color:var(--redt)}
+.extra .ex-ic svg{width:20px;height:20px}
+/* Schild „vorläufig“ (Punkt k): Rohmaterial-Minuten sind noch nicht die festen Zahlen */
+em.vl{display:inline-block;margin-left:6px;padding:1px 7px;border-radius:6px;font-style:normal;font-size:14px;font-weight:700;letter-spacing:.01em;
+ color:var(--soft);background:var(--chip);vertical-align:1px;white-space:nowrap}
 .fussnoten{margin:22px auto 0;max-width:820px;color:var(--dim);font-size:14px;text-align:center}
 .fussnoten p{margin:4px 0}
 .einladung{display:inline-block;margin-top:18px;font-size:14px;font-weight:600;color:var(--soft);padding:7px 14px;border-radius:10px;background:var(--inner);border:1px solid var(--line2)}
@@ -642,9 +702,8 @@ html:not(.js) .iphone .tts .fo:not(:first-child){display:none}
 .iphone .tts .fs{position:absolute;left:4em;right:4em;top:6em;display:flex;gap:1.2em;z-index:1}
 .iphone .tts .fs i{flex:1;height:.55em;border-radius:1em;background:rgba(255,255,255,.32)}
 .iphone .tts .fs i.an{background:rgba(255,255,255,.9);transition:background .4s}
-/* Hero-iPhone „Beides abwechselnd“ (Mikail 18.11. ~12:35): vor der Slideshow die Handy-Ansicht des STUDIOS (.sv, Nachbildung
-   mit Beispieldaten, Farben der Seite hell/dunkel): Ordner „Bereit“, „Produkt 1 · Slideshow“, große Vorschau, roter Knopf „An
-   TikTok senden“, unten die Reiter-Leiste wie im Studio am Handy. Abfolge per Skript über data-ph am Bildschirm (.bs):
+/* Hero-iPhone „Beides abwechselnd“ (Mikail 18.11. ~12:35): vor der Slideshow die Handy-Ansicht des STUDIOS (.sv, seit Mo 18.11.
+   ~19:45 ECHTE Studio-Bilder, hell/dunkel wie die Seite): Videos › Slideshows › Neu mit Knopf „Senden“, danach Ordner „Gesendet“. Abfolge per Skript über data-ph am Bildschirm (.bs):
    studio -> druck (Knopf gedrückt) -> gesendet (Knopf „Gesendet“, Mitteilung kommt, data-mt) -> tts (Studio schiebt hinaus, die
    Slideshow läuft in TikTok) -> studio … Nur mit Klasse .bew (JS + keine „Weniger Bewegung“); ohne = Standbild Folie 1 + Mitteilung.
    WECHSEL (Partner 2, 18.11. Zusatz 3, Live-Fehler dfcd754: Studio-Ansicht blendete .6 s halbdurchsichtig über der schon
@@ -653,30 +712,20 @@ html:not(.js) .iphone .tts .fo:not(:first-child){display:none}
    herein (wie ein App-Wechsel); zurück umgekehrt. Deckkraft bleibt immer 1, also nie zwei Inhalte halbdurchsichtig übereinander.
    Mitteilung kommt nur per Verschieben von oben, die Knopf-Beschriftung wechselt hart (ohne Überblenden). Test: Zwischenbilder
    alle 50 ms (website_startseite_test.py, „Wechsel ohne Doppelbild“) + Gegenprobe mit dem alten Wechsel. */
-.iphone .sv{position:absolute;inset:0;z-index:1;display:none;flex-direction:column;padding:15em 5.5em 0;background:var(--bg);color:var(--text);
- font-family:'Plus Jakarta Sans',system-ui,sans-serif;line-height:1.3;transition:transform .6s cubic-bezier(.3,.7,.2,1)}
+.iphone .sv{position:absolute;inset:0;z-index:1;display:none;background:var(--bg);transition:transform .6s cubic-bezier(.3,.7,.2,1)}
 .bew .iphone .bs[data-ph] .sv{display:flex}
-.iphone .sv-k{display:flex;align-items:center;gap:1.2em;height:11em}
-.iphone .sv-zu svg{width:6.4em;height:6.4em;transform:rotate(90deg);color:var(--redt)}
-.iphone .sv-k b{font-size:7.4em;font-weight:800;letter-spacing:-.02em}
-.iphone .sv-t{margin:2.6em 0 0}
-.iphone .sv-t b{display:block;font-size:5.4em;font-weight:700}
-.iphone .sv-t small{display:block;margin-top:.25em;font-size:4.2em;color:var(--muted)}
-.iphone .sv-b{position:relative;width:74em;aspect-ratio:3/4;margin:4.6em auto 0;border-radius:4.4em;overflow:hidden;background:#000;box-shadow:0 2em 5em -2.4em rgba(0,0,0,.45)}
-.iphone .sv-b img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.iphone .sv-knopf{display:grid;margin:5.6em 0 0;height:15em;border-radius:4.4em;background:var(--red);color:#fff;transition:transform .2s ease,background .3s ease,color .3s ease}
-.iphone .sv-knopf>span{grid-area:1/1;display:flex;align-items:center;justify-content:center;gap:.45em;font-size:4.6em;font-weight:650}
-.iphone .sv-knopf svg{width:1.05em;height:1.05em}
-.iphone .sv-g{opacity:0}
-.iphone .sv-g svg{color:var(--ok)}
-.iphone .sv-nav{display:flex;justify-content:space-around;margin:auto -5.5em 0;padding:3.4em 3em 9.5em;border-top:1px solid var(--line);background:var(--bar)}
-.iphone .sv-nav i{display:grid;place-items:center;color:var(--dim)}
-.iphone .sv-nav i.an{color:var(--redt)}
-.iphone .sv-nav .ni{width:9em;height:9em}
-.bew .iphone .bs[data-ph=druck] .sv-knopf{transform:scale(.95);background:var(--btnh)}
-.bew .iphone .bs[data-ph=gesendet] .sv-knopf,.bew .iphone .bs[data-ph=tts] .sv-knopf{background:var(--chip);color:var(--text)}
-.bew .iphone .bs[data-ph=gesendet] .sv-a,.bew .iphone .bs[data-ph=tts] .sv-a{opacity:0}
-.bew .iphone .bs[data-ph=gesendet] .sv-g,.bew .iphone .bs[data-ph=tts] .sv-g{opacity:1}
+/* echte Studio-Bilder (website_hero_studio.py, 780 × 1674 = 390 × 837 bei Pixeldichte 2): füllen den Bildschirm; Bild 2 („Gesendet“)
+   liegt deckungsgleich darüber und wird HART eingeschaltet (visibility, Deckkraft immer 1 – nie zwei Bilder halbdurchsichtig) */
+.iphone .sv-s{position:absolute;inset:0}
+.iphone .sv-s picture{display:contents}
+.iphone .sv-s img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 0}
+.iphone .sv-s.s2{visibility:hidden}
+.bew .iphone .bs[data-ph=gesendet] .sv-s.s1,.bew .iphone .bs[data-ph=tts] .sv-s.s1{visibility:hidden}
+.bew .iphone .bs[data-ph=gesendet] .sv-s.s2,.bew .iphone .bs[data-ph=tts] .sv-s.s2{visibility:visible}
+/* Tipp-Kreis auf dem Knopf „Senden“ (Lage gemessen): nur in „druck“, nur transform (Fingerdruck), ohne Inhalt (kein Bild/Text) */
+.iphone .sv-tipp{position:absolute;z-index:1;border-radius:999px;visibility:hidden;box-shadow:0 0 0 .9em rgba(232,52,74,.28),inset 0 0 0 .5em rgba(232,52,74,.55);
+ transform:scale(1.25);transition:transform .25s ease}
+.bew .iphone .bs[data-ph=druck] .sv-tipp{visibility:visible;transform:scale(.94)}
 .bew .iphone .bs[data-ph=tts] .sv{transform:translateX(-100%);visibility:hidden;transition:transform .6s cubic-bezier(.3,.7,.2,1),visibility 0s linear .6s}
 .bew .iphone .bs[data-ph] .tts{transition:transform .6s cubic-bezier(.3,.7,.2,1)}
 .bew .iphone .bs[data-ph]:not([data-ph=tts]) .tts{transform:translateX(100%)}
@@ -686,7 +735,7 @@ html:not(.js) .iphone .tts .fo:not(:first-child){display:none}
 .bew .iphone .bs[data-ph] .mt{visibility:hidden;transform:translateY(calc(-100% - 17em));transition:transform .55s cubic-bezier(.2,.8,.2,1),visibility 0s linear .55s}
 .bew .iphone .bs[data-ph][data-mt] .mt{visibility:visible;transform:none;transition:transform .55s cubic-bezier(.2,.8,.2,1)}
 .iphone .tts.still .fo{transition:none!important}
-@media (prefers-reduced-motion:reduce){.bew .iphone .bs[data-ph] .sv{display:none}.bew .iphone .bs[data-ph] .mt{visibility:visible;transform:none}
+@media (prefers-reduced-motion:reduce){.bew .iphone .bs[data-ph] .sv,.iphone .sv-tipp{display:none}.bew .iphone .bs[data-ph] .mt{visibility:visible;transform:none}
  .bew .iphone .bs[data-ph] .tts,.bew .iphone .bs[data-ph]:not([data-ph=tts]) .tts{transform:none;transition:none}}
 /* Kachel: Produkt-Research (Zusatz 4) = Nachbildung der Studio-Seite „Produkte“: Suchfeld + Zeitraum | 4 Zeilen | Beispielwerte +
    Abbild-Knopf. Ablauf (Skript, data-st 0..3) einmal beim Sichtbarwerden; ohne data-st = Endzustand (ohne JS/„Weniger Bewegung“). */
@@ -745,6 +794,27 @@ html:not(.js) .iphone .tts .fo:not(:first-child){display:none}
 .zt-bar.ac i{width:calc(var(--a) * 100%);background:var(--red);transition-delay:.25s}
 .js .zeit:not(.da) .zt-bar i{transform:scaleX(0)}
 .zt-summe{margin:24px 0 0;font-size:16px;font-weight:600;line-height:1.5;color:var(--soft);text-wrap:pretty}
+/* Kostenvergleich (Punkt d): EINE Karte, zwei Seiten (Cutter-Beispiel grau, AutoCutAI rot), Annahmen direkt an jeder Zahl */
+.kosten{max-width:860px;margin:48px auto 0;padding:30px 34px 28px;text-align:left}
+.ko-m{margin:0 0 18px;font-size:15px;font-weight:600;line-height:1.45;color:var(--soft);text-align:center}
+.ko-g{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:16px;align-items:stretch}
+.ko-vs{align-self:center;font-size:15px;font-weight:800;color:var(--dim);letter-spacing:.02em}
+.ko-s{display:flex;flex-direction:column;gap:8px;min-width:0;padding:24px 24px 22px;border-radius:16px;background:var(--inner);border:1px solid var(--line)}
+.ko-s.ac{border-color:rgba(232,52,74,.45);background:var(--redbg)}
+.ko-k{font-size:14px;font-weight:700;color:var(--muted)}
+.ko-b{font-size:46px;font-weight:800;letter-spacing:-.04em;line-height:1.05}
+.ko-b .ca{margin-right:.18em;font-size:.46em;font-weight:700;letter-spacing:-.01em;color:var(--muted)}.ko-b .n{white-space:nowrap}
+.ko-b .u{display:inline-block;white-space:nowrap;margin-left:6px;font-size:15px;font-weight:500;letter-spacing:0;color:var(--muted)}
+.ko-u{font-size:14px;line-height:1.45;color:var(--soft)}
+.ko-u b{font-weight:700;color:var(--text)}
+.ko-d{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:center;gap:4px 12px;margin:22px 0 0;padding:16px 18px;border-radius:14px;
+ background:var(--okbg);color:var(--soft);font-size:15px;font-weight:600;text-align:center}
+.ko-d b{font-size:30px;font-weight:800;letter-spacing:-.03em;color:var(--ok)}
+@media (max-width:700px){.kosten{padding:22px 18px 20px;margin-top:36px}.ko-g{grid-template-columns:minmax(0,1fr);gap:10px}.ko-s{padding:20px 18px 18px}.ko-vs{justify-self:center}.ko-b{font-size:38px}
+ .ko-d b{font-size:26px}}
+.pr-k{position:relative}
+.pr-bsp-schild{position:absolute;top:-11px;right:16px;z-index:1;padding:3px 9px;border-radius:7px;font-size:12px;font-weight:700;letter-spacing:.02em;
+ color:var(--soft);background:var(--chip);border:1px solid var(--line2)}
 .zt-fuss{max-width:760px;margin:16px auto 0;font-size:14px;line-height:1.5;color:var(--dim);text-align:center;text-wrap:pretty}
 @media (max-width:600px){.zeit{padding:22px 18px 20px;margin-top:36px}}
 
