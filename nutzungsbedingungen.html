@@ -296,9 +296,9 @@ html:not(.js) .iphone .tts .fo:not(:first-child){display:none}
  transform:perspective(1500px) translate3d(0,calc((1 - var(--kp,0)) * -25%),0) rotateX(calc((1 - var(--kp,0)) * 24deg)) scale(calc(1 - (1 - var(--kp,0)) * .07))}}
 @media (prefers-reduced-motion:reduce){.js .buehne .iphone.kipp,.js .buehne .sf.kipp{transform:none;will-change:auto}}
 /* Kreide-Pfeile (Partner 2, 17.11.: „Pfeil mit ‚Studio‘ dahin, wie auf einer Tafel“; 18.11. Nachtrag b: zweiter Pfeil „Handy · per
-   Web-App“ aufs iPhone): handgezeichnete SVG-Striche (Wort als Pfad, keine Web-Schrift) mit leicht rauem Kreide-Rand
+   Web-App“ aufs iPhone, ab 1280 px): handgezeichnete SVG-Striche (Wort als Pfad, keine Web-Schrift) mit leicht rauem Kreide-Rand
    (feTurbulence + feDisplacementMap). Gedämpfte Farbe, nur Deko (aria-hidden, keine Klicks). „Studio“: breit links neben dem
-   Fenster, mittel über seiner linken oberen Ecke. „Handy“: rechts neben dem iPhone, nur ab 1440 px (vorher kein Platz).
+   Fenster, mittel über seiner linken oberen Ecke. „Handy“: rechts neben dem iPhone, ab 1280 px (vorher kein Platz).
    ≤ 760 px keine Pfeile. */
 .kreide{position:absolute;z-index:1;width:150px;height:auto;color:var(--muted);pointer-events:none;overflow:visible}
 .kreide path{fill:none;stroke:currentColor;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round}
@@ -306,7 +306,10 @@ html:not(.js) .iphone .tts .fo:not(:first-child){display:none}
 @media (max-width:1559px){.sf-w>.kreide{left:6px;bottom:calc(100% + 2px);width:128px}}
 .kreide.kh{display:none;left:calc(100% + 6px);top:16%;width:146px}
 .kreide.kh path{stroke-width:2.6}
-@media (min-width:1440px){.kreide.kh{display:block}}
+/* „Handy“ ab 1280 px (Auflage Fable 18.11.: so früh wie es nichts überdeckt; gemessen: bei 146 px Breite reicht der Platz ab
+   1366, schmaler 112 px ab 1280 – 12 px Rand; darunter läge er außerhalb des Bildschirms) */
+@media (min-width:1280px){.kreide.kh{display:block}}
+@media (min-width:1280px) and (max-width:1365px){.kreide.kh{width:112px;left:calc(100% + 2px)}}
 @media (max-width:760px){.kreide,.kreide.kh{display:none}}
 /* mittlere Breiten: die Vertrauenszeile reicht bis unter den Pfeil „Studio“ -> Bühne tiefer, Pfeil (≈ 87 px hoch) passt in die Lücke */
 @media (min-width:761px) and (max-width:1023px){.buehne{margin-top:104px}}
@@ -370,7 +373,7 @@ html:not(.js) .iphone .tts .fo:not(:first-child){display:none}
 .vn-mark.an{opacity:1}
 .vn[data-modus=hell] .vn-mark{background:#161823;color:#fff;box-shadow:0 2px 8px rgba(0,0,0,.18)}
 /* Umschalter-Pille „Vorher | Nachher“ über der Folie (2 echte Knöpfe, setzen die Linie ganz nach rechts bzw. links) und 3 Reiter
-   „Kommentar · Chat · Mitteilung“ darunter (role=tab) – beide schlicht, 1 Akzent (aktiver Zustand), Höhe 36 bzw. 44 px. */
+   „Foto · Chat · Mitteilung“ (bis 18.11. Kommentar) darunter (role=tab) – beide schlicht, 1 Akzent (aktiver Zustand), Höhe 36 bzw. 44 px. */
 .vgl-pille{display:inline-flex;padding:3px;border-radius:999px;background:var(--chip);gap:2px}
 .vgl-s{appearance:none;border:0;margin:0;font:inherit;font-size:13px;font-weight:600;line-height:1;padding:0 14px;height:30px;border-radius:999px;
  background:transparent;color:var(--muted);cursor:pointer}
@@ -559,12 +562,13 @@ html:not(.js) .iphone .tts .fo:not(:first-child){display:none}
    (eigener Stapelkontext der Karte, Zahl z-index -1 = über dem Kartengrund, unter dem Text). */
 .ablauf li{padding:30px 30px 32px;border-radius:18px;overflow:hidden;isolation:isolate;--ziffer:rgba(255,255,255,.075)}
 @media (prefers-color-scheme:light){.ablauf li{--ziffer:rgba(0,0,0,.06)}}
-.ablauf li::after{counter-increment:s;content:counter(s);position:absolute;z-index:-1;top:-34px;right:-12px;font-size:132px;font-weight:800;line-height:1;
+/* Zahl ganz IN der Karte (Auflage Fable 18.11.: angeschnitten oben rechts wirkte abgeschnitten), dezent hinter dem Text */
+.ablauf li::after{counter-increment:s;content:counter(s);position:absolute;z-index:-1;top:10px;right:18px;font-size:112px;font-weight:800;line-height:1;
  letter-spacing:-.06em;font-variant-numeric:tabular-nums;color:var(--ziffer);pointer-events:none}
 .ablauf li h3{margin-top:30px;padding-right:64px}
 .ablauf p{margin:10px 0 0;color:var(--muted);font-size:16px}
 @media (max-width:900px){.ablauf{grid-template-columns:1fr;gap:14px;margin-top:40px}.ablauf li{padding:24px}
- .ablauf li::after{top:-28px;right:-10px;font-size:112px}.ablauf li h3{margin-top:24px;padding-right:58px}}
+ .ablauf li::after{top:8px;right:14px;font-size:100px}.ablauf li h3{margin-top:24px;padding-right:58px}}
 /* Nacheinander einblenden (Stufe 2): nur wenn die drei Karten nebeneinander stehen; untereinander kommt jede beim Scrollen selbst */
 @media (min-width:901px){.js .ablauf li.auf:nth-child(2){transition-delay:.1s}.js .ablauf li.auf:nth-child(3){transition-delay:.2s}}
 
