@@ -195,6 +195,24 @@ section{padding:120px 0}
 .app .zl .sb svg{width:.93em;height:.93em}
 .app .zl .sb span:not([data-lang]){font-size:.87em;font-weight:600;white-space:nowrap}
 .app .zl .mh{width:2.13em;text-align:center;color:var(--dim);font-weight:700;letter-spacing:.06em}
+/* Mauspfeil im Studio-Fenster (Mikail 18.11. ~20:50): macOS-Pfeil fährt zum Klick und klickt sichtbar (kleiner Kreis) –
+   gleichzeitig mit dem Finger-Tipp „Senden“ im iPhone klickt er den Ordner „Gesendet“ (die Senden-Knöpfe des Fensters liegen
+   unter dem iPhone); danach steht NUR Produkt 1 auf „Gesendet“, Zähler Neu −1 / Gesendet +1 (Fable 19.11.), ab der neuen
+   Runde wieder „Neu“. Nur mit .bew (JS, keine „Weniger Bewegung“), nur transform; Lage misst das Skript (--zx/--zy, px im Fenster). */
+.app .zl .pill.gs,.ordner3 small.z1{display:none}
+.bew .fenster:is([data-ph=druck],[data-ph=gesendet],[data-ph=tts],[data-ph^=v]) .zl .pill.gs{display:inline-flex}
+.bew .fenster:is([data-ph=druck],[data-ph=gesendet],[data-ph=tts],[data-ph^=v]) .zl:first-child :is(.pill.neu,.vneu,.nm){display:none}
+.bew .fenster:is([data-ph=druck],[data-ph=gesendet],[data-ph=tts],[data-ph^=v]) .ordner3 small.z0{display:none}
+.bew .fenster:is([data-ph=druck],[data-ph=gesendet],[data-ph=tts],[data-ph^=v]) .ordner3 small.z1{display:block}
+.bew .fenster:is([data-ph=druck],[data-ph=gesendet],[data-ph=tts],[data-ph^=v]) .ordner3 .o.an{background:none;border-color:var(--line);box-shadow:none;color:var(--soft)}
+.bew .fenster:is([data-ph=druck],[data-ph=gesendet],[data-ph=tts],[data-ph^=v]) .ordner3 .o:last-child{background:var(--chip);border-color:transparent;box-shadow:inset 0 0 0 1px var(--line3);color:var(--text)}
+.fenster .maus{display:none}
+.bew .fenster .maus{display:block;position:absolute;left:0;top:0;z-index:5;width:22px;height:33px;pointer-events:none;
+ transform:translate(var(--zx,-40px),var(--zy,-40px));transition:transform .9s cubic-bezier(.45,.05,.25,1)}
+.bew .fenster .maus svg{display:block;width:100%;height:100%;filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.35))}
+.bew .fenster .maus i{position:absolute;left:-9px;top:-9px;width:18px;height:18px;border-radius:50%;background:rgba(232,52,74,.35);
+ box-shadow:0 0 0 2px rgba(232,52,74,.6);transform:scale(0);opacity:0;transition:transform .25s ease,opacity .25s ease}
+.bew .fenster[data-ph=druck] .maus i{transform:scale(1);opacity:1}
 /* Status-Pille wie im Studio: Umriss + farbiger Punkt */
 .pill{display:inline-flex;align-items:center;gap:.5em;font-size:12px;font-weight:600;padding:.33em .83em;border-radius:.67em;border:1px solid var(--line2);color:var(--soft);white-space:nowrap;justify-self:start}
 .pill::before{content:"";width:.5em;height:.5em;border-radius:50%;flex:none;background:var(--dot,var(--dim))}
@@ -340,42 +358,82 @@ section{padding:120px 0}
 .vgl figcaption .nw{white-space:nowrap}
 @media (max-width:600px){.vn{width:100%}}
 
-/* Rohvideo-Vergleich (Punkt n): zwei 9:16-Clips nebeneinander (auch am Handy – direkte Gegenüberstellung), Pfeil dazwischen,
-   Etikett oben links, Dauer oben rechts, Knopf unten (≥ 44 px). Nur transform/opacity, keine Bewegung bei „Weniger Bewegung“. */
+/* Rohvideo-Vergleich (Punkt n, NEU Mikail 19.11. ~00:55): EIN Handy-Rahmen, darunter die Zeitleiste aus dem echten Schnitt-
+   protokoll. Schritt 1 „Vorher · roh“ läuft, erreichte Stücke färben sich (rot = rausgeschnitten mit Grund, hell-rot = Pause,
+   grün = bleibt); Schritt 2: rote Stücke fallen weg, Leiste schrumpft auf die fertige Länge, Rahmen wechselt auf „Nachher“.
+   Danach Umschalter Vorher/Nachher. Bewegung nur über left/width/opacity der kleinen Leiste; bei „Weniger Bewegung“ keine. */
 .rv{margin:8px auto 0;padding:0 0 96px;max-width:860px}
 .rv .mitte{max-width:640px}
 .rv-h{margin:6px 0 0;font-size:clamp(28px,4.2vw,44px);font-weight:800;letter-spacing:-.035em;line-height:1.08}
-.rv-g{display:grid;grid-template-columns:minmax(0,300px) auto minmax(0,300px);grid-template-rows:auto auto;justify-content:center;align-items:start;column-gap:20px;row-gap:12px;margin-top:40px}
-.rv-c{margin:0;display:grid;gap:12px;justify-items:center;grid-row:1/3;grid-template-rows:subgrid}
-.rv-pf{grid-row:1;align-self:center}
-.rv-r{position:relative;width:100%;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:#1C1C1E;isolation:isolate;
- box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 24px 48px -26px rgba(0,0,0,.6),0 0 0 1px var(--line)}
-.rv-r video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#1C1C1E}
-.js .rv-r video::-webkit-media-controls{display:none!important}
-.rv-et,.rv-d{position:absolute;top:12px;z-index:2;padding:5px 10px;border-radius:9px;font-size:14px;font-weight:700;line-height:1.2;color:#fff;
+.rv-b{display:grid;justify-items:center;gap:18px;margin:40px auto 0;max-width:560px}
+/* Rahmen so groß, dass Rahmen + Zeitleiste + Text + Umschalter zusammen auf den Bildschirm passen (svh = sichtbare Höhe am Handy) */
+.rv-r{position:relative;width:min(300px,100%,max(180px,calc((100vh - 330px) * .5625)));aspect-ratio:9/16;border-radius:36px;overflow:hidden;background:#111113;isolation:isolate;
+ border:7px solid #0B0B0D;box-shadow:0 0 0 1px var(--line2),0 30px 60px -28px rgba(0,0,0,.65)}
+.js .rv-v{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#111113;opacity:0;transition:opacity .45s ease}
+.js .rv-v.an{opacity:1}
+.js .rv-v::-webkit-media-controls{display:none!important}
+html:not(.js) .rv-r{display:grid;grid-template-columns:1fr 1fr;gap:6px;aspect-ratio:auto;width:min(560px,100%);border-radius:18px}
+html:not(.js) .rv-v{width:100%;height:auto;aspect-ratio:9/16;display:block}
+html:not(.js) .rv-et,html:not(.js) .rv-d,html:not(.js) .rv-u{display:none}
+.rv-et,.rv-d{position:absolute;z-index:2;padding:5px 10px;border-radius:9px;font-size:14px;font-weight:700;line-height:1.2;color:#fff;white-space:nowrap;
  background:rgba(14,14,16,.66);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);pointer-events:none}
-.rv-et{left:12px;max-width:calc(100% - 84px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rv-d{right:12px;font-variant-numeric:tabular-nums}
-.rv-zus{font-weight:600;opacity:.85}
-.rv-nachher .rv-et{background:rgba(15,110,68,.86)}
-.rv-k{display:none;position:absolute;left:50%;bottom:14px;z-index:2;transform:translateX(-50%);min-height:44px;padding:0 16px 0 13px;border:0;border-radius:999px;
+.rv-et{top:12px;left:12px;max-width:calc(100% - 24px);overflow:hidden;text-overflow:ellipsis}
+.rv-d{left:12px;bottom:14px;font-variant-numeric:tabular-nums}
+.rv-et .e-n{display:none}
+.rv-b[data-ph=nachher] .rv-et .e-v{display:none}.rv-b[data-ph=nachher] .rv-et .e-n{display:inline}
+.rv-b[data-ph=nachher] .rv-et{background:rgba(15,110,68,.88)}
+.rv-k{display:none;position:absolute;right:12px;bottom:10px;z-index:2;min-height:44px;padding:0 16px 0 13px;border:0;border-radius:999px;
  align-items:center;gap:7px;font:inherit;font-size:14px;font-weight:700;color:#1D1D1F;background:rgba(255,255,255,.94);cursor:pointer;
- box-shadow:0 6px 18px -6px rgba(0,0,0,.45);transition:transform .2s cubic-bezier(.2,.8,.2,1),opacity .2s}
+ box-shadow:0 6px 18px -6px rgba(0,0,0,.45);transition:transform .2s cubic-bezier(.2,.8,.2,1)}
 .js .rv-k{display:inline-flex}
 .rv-k>span{display:none;align-items:center;gap:7px;white-space:nowrap}
 .rv-k[data-st=p] .k-p,.rv-k[data-st=an] .k-an,.rv-k[data-st=aus] .k-aus{display:inline-flex}
 .rv-k svg{width:18px;height:18px;flex:none}
-.rv-k:focus-visible{outline:2px solid var(--red2);outline-offset:3px}
-@media (hover:hover) and (prefers-reduced-motion:no-preference){.rv-k:hover{transform:translateX(-50%) scale(1.04)}}
-.rv-c figcaption{font-size:14px;line-height:1.45;color:var(--muted);text-align:center;max-width:280px}
-.rv-pf{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;color:var(--text);background:var(--card);border:1px solid var(--line2)}
-.rv-pf svg{width:20px;height:20px}
+.rv-k:focus-visible,.rv-u button:focus-visible{outline:2px solid var(--red2);outline-offset:3px}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){.rv-k:hover{transform:scale(1.04)}}
+/* Zeitleiste: Maßstab 100 % = Roh-Ausschnitt; --l/--w = Lage roh, --l2/--w2 = Lage nach dem Schnitt (aus dem Protokoll gerechnet) */
+.rv-tl{position:relative;width:100%;padding-top:34px}
+.rv-sp{position:relative;height:12px}
+.rv-sp::before{content:"";position:absolute;left:0;top:0;bottom:0;width:100%;border-radius:6px;background:var(--line);transition:width .7s cubic-bezier(.4,0,.2,1)}
+.rv-s{position:absolute;top:0;bottom:0;left:var(--l);width:var(--w);border-radius:4px;background:var(--line2);box-shadow:0 0 0 1px var(--bg) inset;
+ transition:left .7s cubic-bezier(.4,0,.2,1),width .7s cubic-bezier(.4,0,.2,1),opacity .45s,background-color .25s}
+.rv-s.weg.an{background:var(--red)}
+.rv-s.pause.an{background:var(--redbg);background-image:repeating-linear-gradient(135deg,transparent 0 3px,rgba(232,52,74,.45) 3px 5px)}
+.rv-s.bleibt.an{background:#30A46C}
+.rv-s.fe{left:var(--l2);width:0;opacity:0;background:#30A46C}
+.rv-s.fe.f2{background:#2C8A5C}
+.rv-b:not([data-ph=vorher]) .rv-sp::before{width:var(--gw)}
+.rv-b:not([data-ph=vorher]) .rv-s.weg,.rv-b:not([data-ph=vorher]) .rv-s.pause{width:0;left:var(--l2);opacity:0}
+.rv-b:not([data-ph=vorher]) .rv-s.bleibt{left:var(--l2);background:#30A46C}
+.rv-b[data-ph=nachher] .rv-s.bleibt{opacity:0}
+.rv-b[data-ph=nachher] .rv-s.fe{width:var(--w2);opacity:1;transition-delay:0s,.05s,0s,0s}
+.rv-b[data-ph=nachher] .rv-s.f2{transition-delay:0s,.2s,0s,0s}
+.rv-ph{position:absolute;top:-5px;bottom:-5px;left:calc(var(--p,0) * 1%);width:3px;margin-left:-1.5px;border-radius:2px;background:var(--text);box-shadow:0 0 0 2px var(--bg)}
+.rv-chip{position:absolute;top:0;left:var(--m);transform:translateX(-50%);padding:3px 8px;border-radius:7px;font-size:14px;font-weight:700;line-height:1.3;
+ color:#fff;background:var(--red);white-space:nowrap;opacity:0;transition:opacity .3s}
+.rv-chip.an{opacity:1}.rv-chip.ok{background:#1F8A57}
+.rv-chip.rand-l{transform:none}.rv-chip.rand-r{transform:translateX(-100%)}
+.js .rv-chip[style*="--x"]{left:var(--x);transform:none}   /* Lage vom Skript: nie übereinander, nie aus der Leiste (schmale Handys) */
+.rv-b:not([data-ph=vorher]) .rv-chip{opacity:0}
+.rv-sk{display:flex;justify-content:space-between;margin-top:8px;font-size:14px;line-height:1.3;color:var(--dim);font-variant-numeric:tabular-nums}
+.rv-sk .n,.rv-b:not([data-ph=vorher]) .rv-sk .v{display:none}
+.rv-b:not([data-ph=vorher]) .rv-sk .n{display:flex;justify-content:space-between;width:var(--gw)}
+.rv-sk .v{display:flex;justify-content:space-between;width:100%}
+.rv-z{position:relative;width:100%;min-height:4.35em;margin:0;font-size:14px;line-height:1.45;color:var(--muted);text-align:center}
+.rv-z>span{display:none}.rv-z>span.an{display:block}
+.rv-z b{color:var(--text)}
+.rv-u{display:grid;grid-template-columns:1fr 1fr;gap:6px;width:100%;padding:5px;border-radius:16px;background:var(--card);border:1px solid var(--line2)}
+.rv-u button{min-height:48px;padding:6px 10px;border:0;border-radius:11px;font:inherit;font-size:15px;font-weight:700;line-height:1.25;color:var(--muted);
+ background:transparent;cursor:pointer;display:grid;place-content:center;text-align:center;transition:background-color .2s,color .2s}
+.rv-u button small{display:block;font-size:14px;font-weight:600;color:var(--dim);white-space:nowrap}
+@media (max-width:374px){.rv-u .ud{display:none}}   /* schmale Handys: Dauer steht ohnehin im Rahmen */
+.rv-u button[aria-pressed=true]{color:var(--text);background:var(--bg);box-shadow:0 1px 3px rgba(0,0,0,.18),0 0 0 1px var(--line2)}
+.rv-u button[aria-pressed=true] small{color:var(--muted)}
 .rv-fuss{margin:28px auto 0;max-width:620px;font-size:14px;line-height:1.5;color:var(--dim);text-align:center}
-@media (max-width:600px){.rv{padding-bottom:72px}.rv-g{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;margin-top:28px}
- .rv-pf{width:30px;height:30px}.rv-pf svg{width:16px;height:16px}.rv-r{border-radius:14px}
- .rv-et,.rv-d{top:8px;font-size:14px;padding:4px 8px}.rv-et{left:8px;max-width:calc(100% - 16px)}.rv-zus{display:none}
- .rv-d{right:auto;left:8px;top:38px}   /* Handy: Dauer unter das Etikett (14 px passen nicht nebeneinander) */
- .rv-k{bottom:10px;width:44px;height:44px;padding:0;justify-content:center}.rv-k>span>span{display:none}
- .rv-c figcaption{font-size:14px}}
+@supports (height:100svh){.rv-r{width:min(300px,100%,max(180px,calc((100svh - 330px) * .5625)))}}
+@media (max-width:600px){.rv{padding-bottom:72px}.rv-b{margin-top:28px;gap:14px}.rv-r{border-radius:30px;border-width:6px}
+ .rv-et{top:8px;left:8px;padding:4px 8px}.rv-d{left:8px;bottom:12px;padding:4px 8px}
+ .rv-k{right:8px;bottom:8px;width:44px;height:44px;padding:0;justify-content:center}.rv-k>span>span{display:none}}
 
 /* Fakten-Leiste */
 .fakten{padding:84px 0 0}
@@ -725,7 +783,17 @@ html:not(.js) .iphone .tts .fo:not(:first-child){display:none}
 /* Tipp-Kreis auf dem Knopf „Senden“ (Lage gemessen): nur in „druck“, nur transform (Fingerdruck), ohne Inhalt (kein Bild/Text) */
 .iphone .sv-tipp{position:absolute;z-index:1;border-radius:999px;visibility:hidden;box-shadow:0 0 0 .9em rgba(232,52,74,.28),inset 0 0 0 .5em rgba(232,52,74,.55);
  transform:scale(1.25);transition:transform .25s ease}
-.bew .iphone .bs[data-ph=druck] .sv-tipp{visibility:visible;transform:scale(.94)}
+.bew .iphone .bs[data-ph=druck] .sv-tipp:not(.vt){visibility:visible;transform:scale(.94)}
+/* Video-Ablauf v1–v6: je Phase genau EIN Bild sichtbar (hart, visibility – nie zwei halbdurchsichtig), Finger nur in den letzten
+   HS_TIPP_MS (data-tp) auf der Stelle, die zum nächsten Bild führt; „wisch“ = Finger schiebt nach oben (Seite scrollt) */
+.iphone .sv-s.v1,.iphone .sv-s.v2,.iphone .sv-s.v3,.iphone .sv-s.v4,.iphone .sv-s.v5,.iphone .sv-s.v6{visibility:hidden}
+.bew .iphone .bs[data-ph^=v] .sv-s.s1{visibility:hidden}
+.bew .iphone .bs[data-ph=v1] .sv-s.v1,.bew .iphone .bs[data-ph=v2] .sv-s.v2,.bew .iphone .bs[data-ph=v3] .sv-s.v3,
+.bew .iphone .bs[data-ph=v4] .sv-s.v4,.bew .iphone .bs[data-ph=v5] .sv-s.v5,.bew .iphone .bs[data-ph=v6] .sv-s.v6{visibility:visible}
+.bew .iphone .bs[data-ph=v1][data-tp] .sv-tipp.v1,.bew .iphone .bs[data-ph=v2][data-tp] .sv-tipp.v2,.bew .iphone .bs[data-ph=v3][data-tp] .sv-tipp.v3,
+.bew .iphone .bs[data-ph=v4][data-tp] .sv-tipp.v4,.bew .iphone .bs[data-ph=v5][data-tp] .sv-tipp.v5{visibility:visible;transform:scale(.94)}
+.iphone .sv-tipp.wisch{transition:transform .55s cubic-bezier(.3,.7,.2,1)}
+.bew .iphone .bs[data-ph=v3][data-tp] .sv-tipp.wisch{transform:translateY(-320%) scale(.94)}
 .bew .iphone .bs[data-ph=tts] .sv{transform:translateX(-100%);visibility:hidden;transition:transform .6s cubic-bezier(.3,.7,.2,1),visibility 0s linear .6s}
 .bew .iphone .bs[data-ph] .tts{transition:transform .6s cubic-bezier(.3,.7,.2,1)}
 .bew .iphone .bs[data-ph]:not([data-ph=tts]) .tts{transform:translateX(100%)}
@@ -735,7 +803,7 @@ html:not(.js) .iphone .tts .fo:not(:first-child){display:none}
 .bew .iphone .bs[data-ph] .mt{visibility:hidden;transform:translateY(calc(-100% - 17em));transition:transform .55s cubic-bezier(.2,.8,.2,1),visibility 0s linear .55s}
 .bew .iphone .bs[data-ph][data-mt] .mt{visibility:visible;transform:none;transition:transform .55s cubic-bezier(.2,.8,.2,1)}
 .iphone .tts.still .fo{transition:none!important}
-@media (prefers-reduced-motion:reduce){.bew .iphone .bs[data-ph] .sv,.iphone .sv-tipp{display:none}.bew .iphone .bs[data-ph] .mt{visibility:visible;transform:none}
+@media (prefers-reduced-motion:reduce){.bew .iphone .bs[data-ph] .sv,.iphone .sv-tipp,.fenster .maus{display:none}.bew .iphone .bs[data-ph] .mt{visibility:visible;transform:none}
  .bew .iphone .bs[data-ph] .tts,.bew .iphone .bs[data-ph]:not([data-ph=tts]) .tts{transform:none;transition:none}}
 /* Kachel: Produkt-Research (Zusatz 4) = Nachbildung der Studio-Seite „Produkte“: Suchfeld + Zeitraum | 4 Zeilen | Beispielwerte +
    Abbild-Knopf. Ablauf (Skript, data-st 0..3) einmal beim Sichtbarwerden; ohne data-st = Endzustand (ohne JS/„Weniger Bewegung“). */

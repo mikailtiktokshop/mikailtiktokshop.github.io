@@ -195,6 +195,24 @@ section{padding:120px 0}
 .app .zl .sb svg{width:.93em;height:.93em}
 .app .zl .sb span:not([data-lang]){font-size:.87em;font-weight:600;white-space:nowrap}
 .app .zl .mh{width:2.13em;text-align:center;color:var(--dim);font-weight:700;letter-spacing:.06em}
+/* Mauspfeil im Studio-Fenster (Mikail 18.11. ~20:50): macOS-Pfeil fährt zum Klick und klickt sichtbar (kleiner Kreis) –
+   gleichzeitig mit dem Finger-Tipp „Senden“ im iPhone klickt er den Ordner „Gesendet“ (die Senden-Knöpfe des Fensters liegen
+   unter dem iPhone); danach steht NUR Produkt 1 auf „Gesendet“, Zähler Neu −1 / Gesendet +1 (Fable 19.11.), ab der neuen
+   Runde wieder „Neu“. Nur mit .bew (JS, keine „Weniger Bewegung“), nur transform; Lage misst das Skript (--zx/--zy, px im Fenster). */
+.app .zl .pill.gs,.ordner3 small.z1{display:none}
+.bew .fenster:is([data-ph=druck],[data-ph=gesendet],[data-ph=tts],[data-ph^=v]) .zl .pill.gs{display:inline-flex}
+.bew .fenster:is([data-ph=druck],[data-ph=gesendet],[data-ph=tts],[data-ph^=v]) .zl:first-child :is(.pill.neu,.vneu,.nm){display:none}
+.bew .fenster:is([data-ph=druck],[data-ph=gesendet],[data-ph=tts],[data-ph^=v]) .ordner3 small.z0{display:none}
+.bew .fenster:is([data-ph=druck],[data-ph=gesendet],[data-ph=tts],[data-ph^=v]) .ordner3 small.z1{display:block}
+.bew .fenster:is([data-ph=druck],[data-ph=gesendet],[data-ph=tts],[data-ph^=v]) .ordner3 .o.an{background:none;border-color:var(--line);box-shadow:none;color:var(--soft)}
+.bew .fenster:is([data-ph=druck],[data-ph=gesendet],[data-ph=tts],[data-ph^=v]) .ordner3 .o:last-child{background:var(--chip);border-color:transparent;box-shadow:inset 0 0 0 1px var(--line3);color:var(--text)}
+.fenster .maus{display:none}
+.bew .fenster .maus{display:block;position:absolute;left:0;top:0;z-index:5;width:22px;height:33px;pointer-events:none;
+ transform:translate(var(--zx,-40px),var(--zy,-40px));transition:transform .9s cubic-bezier(.45,.05,.25,1)}
+.bew .fenster .maus svg{display:block;width:100%;height:100%;filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.35))}
+.bew .fenster .maus i{position:absolute;left:-9px;top:-9px;width:18px;height:18px;border-radius:50%;background:rgba(232,52,74,.35);
+ box-shadow:0 0 0 2px rgba(232,52,74,.6);transform:scale(0);opacity:0;transition:transform .25s ease,opacity .25s ease}
+.bew .fenster[data-ph=druck] .maus i{transform:scale(1);opacity:1}
 /* Status-Pille wie im Studio: Umriss + farbiger Punkt */
 .pill{display:inline-flex;align-items:center;gap:.5em;font-size:12px;font-weight:600;padding:.33em .83em;border-radius:.67em;border:1px solid var(--line2);color:var(--soft);white-space:nowrap;justify-self:start}
 .pill::before{content:"";width:.5em;height:.5em;border-radius:50%;flex:none;background:var(--dot,var(--dim))}
@@ -340,42 +358,82 @@ section{padding:120px 0}
 .vgl figcaption .nw{white-space:nowrap}
 @media (max-width:600px){.vn{width:100%}}
 
-/* Rohvideo-Vergleich (Punkt n): zwei 9:16-Clips nebeneinander (auch am Handy – direkte Gegenüberstellung), Pfeil dazwischen,
-   Etikett oben links, Dauer oben rechts, Knopf unten (≥ 44 px). Nur transform/opacity, keine Bewegung bei „Weniger Bewegung“. */
+/* Rohvideo-Vergleich (Punkt n, NEU Mikail 19.11. ~00:55): EIN Handy-Rahmen, darunter die Zeitleiste aus dem echten Schnitt-
+   protokoll. Schritt 1 „Vorher · roh“ läuft, erreichte Stücke färben sich (rot = rausgeschnitten mit Grund, hell-rot = Pause,
+   grün = bleibt); Schritt 2: rote Stücke fallen weg, Leiste schrumpft auf die fertige Länge, Rahmen wechselt auf „Nachher“.
+   Danach Umschalter Vorher/Nachher. Bewegung nur über left/width/opacity der kleinen Leiste; bei „Weniger Bewegung“ keine. */
 .rv{margin:8px auto 0;padding:0 0 96px;max-width:860px}
 .rv .mitte{max-width:640px}
 .rv-h{margin:6px 0 0;font-size:clamp(28px,4.2vw,44px);font-weight:800;letter-spacing:-.035em;line-height:1.08}
-.rv-g{display:grid;grid-template-columns:minmax(0,300px) auto minmax(0,300px);grid-template-rows:auto auto;justify-content:center;align-items:start;column-gap:20px;row-gap:12px;margin-top:40px}
-.rv-c{margin:0;display:grid;gap:12px;justify-items:center;grid-row:1/3;grid-template-rows:subgrid}
-.rv-pf{grid-row:1;align-self:center}
-.rv-r{position:relative;width:100%;aspect-ratio:9/16;border-radius:18px;overflow:hidden;background:#1C1C1E;isolation:isolate;
- box-shadow:0 1px 0 rgba(255,255,255,.04) inset,0 24px 48px -26px rgba(0,0,0,.6),0 0 0 1px var(--line)}
-.rv-r video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#1C1C1E}
-.js .rv-r video::-webkit-media-controls{display:none!important}
-.rv-et,.rv-d{position:absolute;top:12px;z-index:2;padding:5px 10px;border-radius:9px;font-size:14px;font-weight:700;line-height:1.2;color:#fff;
+.rv-b{display:grid;justify-items:center;gap:18px;margin:40px auto 0;max-width:560px}
+/* Rahmen so groß, dass Rahmen + Zeitleiste + Text + Umschalter zusammen auf den Bildschirm passen (svh = sichtbare Höhe am Handy) */
+.rv-r{position:relative;width:min(300px,100%,max(180px,calc((100vh - 330px) * .5625)));aspect-ratio:9/16;border-radius:36px;overflow:hidden;background:#111113;isolation:isolate;
+ border:7px solid #0B0B0D;box-shadow:0 0 0 1px var(--line2),0 30px 60px -28px rgba(0,0,0,.65)}
+.js .rv-v{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#111113;opacity:0;transition:opacity .45s ease}
+.js .rv-v.an{opacity:1}
+.js .rv-v::-webkit-media-controls{display:none!important}
+html:not(.js) .rv-r{display:grid;grid-template-columns:1fr 1fr;gap:6px;aspect-ratio:auto;width:min(560px,100%);border-radius:18px}
+html:not(.js) .rv-v{width:100%;height:auto;aspect-ratio:9/16;display:block}
+html:not(.js) .rv-et,html:not(.js) .rv-d,html:not(.js) .rv-u{display:none}
+.rv-et,.rv-d{position:absolute;z-index:2;padding:5px 10px;border-radius:9px;font-size:14px;font-weight:700;line-height:1.2;color:#fff;white-space:nowrap;
  background:rgba(14,14,16,.66);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);pointer-events:none}
-.rv-et{left:12px;max-width:calc(100% - 84px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rv-d{right:12px;font-variant-numeric:tabular-nums}
-.rv-zus{font-weight:600;opacity:.85}
-.rv-nachher .rv-et{background:rgba(15,110,68,.86)}
-.rv-k{display:none;position:absolute;left:50%;bottom:14px;z-index:2;transform:translateX(-50%);min-height:44px;padding:0 16px 0 13px;border:0;border-radius:999px;
+.rv-et{top:12px;left:12px;max-width:calc(100% - 24px);overflow:hidden;text-overflow:ellipsis}
+.rv-d{left:12px;bottom:14px;font-variant-numeric:tabular-nums}
+.rv-et .e-n{display:none}
+.rv-b[data-ph=nachher] .rv-et .e-v{display:none}.rv-b[data-ph=nachher] .rv-et .e-n{display:inline}
+.rv-b[data-ph=nachher] .rv-et{background:rgba(15,110,68,.88)}
+.rv-k{display:none;position:absolute;right:12px;bottom:10px;z-index:2;min-height:44px;padding:0 16px 0 13px;border:0;border-radius:999px;
  align-items:center;gap:7px;font:inherit;font-size:14px;font-weight:700;color:#1D1D1F;background:rgba(255,255,255,.94);cursor:pointer;
- box-shadow:0 6px 18px -6px rgba(0,0,0,.45);transition:transform .2s cubic-bezier(.2,.8,.2,1),opacity .2s}
+ box-shadow:0 6px 18px -6px rgba(0,0,0,.45);transition:transform .2s cubic-bezier(.2,.8,.2,1)}
 .js .rv-k{display:inline-flex}
 .rv-k>span{display:none;align-items:center;gap:7px;white-space:nowrap}
 .rv-k[data-st=p] .k-p,.rv-k[data-st=an] .k-an,.rv-k[data-st=aus] .k-aus{display:inline-flex}
 .rv-k svg{width:18px;height:18px;flex:none}
-.rv-k:focus-visible{outline:2px solid var(--red2);outline-offset:3px}
-@media (hover:hover) and (prefers-reduced-motion:no-preference){.rv-k:hover{transform:translateX(-50%) scale(1.04)}}
-.rv-c figcaption{font-size:14px;line-height:1.45;color:var(--muted);text-align:center;max-width:280px}
-.rv-pf{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;color:var(--text);background:var(--card);border:1px solid var(--line2)}
-.rv-pf svg{width:20px;height:20px}
+.rv-k:focus-visible,.rv-u button:focus-visible{outline:2px solid var(--red2);outline-offset:3px}
+@media (hover:hover) and (prefers-reduced-motion:no-preference){.rv-k:hover{transform:scale(1.04)}}
+/* Zeitleiste: Maßstab 100 % = Roh-Ausschnitt; --l/--w = Lage roh, --l2/--w2 = Lage nach dem Schnitt (aus dem Protokoll gerechnet) */
+.rv-tl{position:relative;width:100%;padding-top:34px}
+.rv-sp{position:relative;height:12px}
+.rv-sp::before{content:"";position:absolute;left:0;top:0;bottom:0;width:100%;border-radius:6px;background:var(--line);transition:width .7s cubic-bezier(.4,0,.2,1)}
+.rv-s{position:absolute;top:0;bottom:0;left:var(--l);width:var(--w);border-radius:4px;background:var(--line2);box-shadow:0 0 0 1px var(--bg) inset;
+ transition:left .7s cubic-bezier(.4,0,.2,1),width .7s cubic-bezier(.4,0,.2,1),opacity .45s,background-color .25s}
+.rv-s.weg.an{background:var(--red)}
+.rv-s.pause.an{background:var(--redbg);background-image:repeating-linear-gradient(135deg,transparent 0 3px,rgba(232,52,74,.45) 3px 5px)}
+.rv-s.bleibt.an{background:#30A46C}
+.rv-s.fe{left:var(--l2);width:0;opacity:0;background:#30A46C}
+.rv-s.fe.f2{background:#2C8A5C}
+.rv-b:not([data-ph=vorher]) .rv-sp::before{width:var(--gw)}
+.rv-b:not([data-ph=vorher]) .rv-s.weg,.rv-b:not([data-ph=vorher]) .rv-s.pause{width:0;left:var(--l2);opacity:0}
+.rv-b:not([data-ph=vorher]) .rv-s.bleibt{left:var(--l2);background:#30A46C}
+.rv-b[data-ph=nachher] .rv-s.bleibt{opacity:0}
+.rv-b[data-ph=nachher] .rv-s.fe{width:var(--w2);opacity:1;transition-delay:0s,.05s,0s,0s}
+.rv-b[data-ph=nachher] .rv-s.f2{transition-delay:0s,.2s,0s,0s}
+.rv-ph{position:absolute;top:-5px;bottom:-5px;left:calc(var(--p,0) * 1%);width:3px;margin-left:-1.5px;border-radius:2px;background:var(--text);box-shadow:0 0 0 2px var(--bg)}
+.rv-chip{position:absolute;top:0;left:var(--m);transform:translateX(-50%);padding:3px 8px;border-radius:7px;font-size:14px;font-weight:700;line-height:1.3;
+ color:#fff;background:var(--red);white-space:nowrap;opacity:0;transition:opacity .3s}
+.rv-chip.an{opacity:1}.rv-chip.ok{background:#1F8A57}
+.rv-chip.rand-l{transform:none}.rv-chip.rand-r{transform:translateX(-100%)}
+.js .rv-chip[style*="--x"]{left:var(--x);transform:none}   /* Lage vom Skript: nie übereinander, nie aus der Leiste (schmale Handys) */
+.rv-b:not([data-ph=vorher]) .rv-chip{opacity:0}
+.rv-sk{display:flex;justify-content:space-between;margin-top:8px;font-size:14px;line-height:1.3;color:var(--dim);font-variant-numeric:tabular-nums}
+.rv-sk .n,.rv-b:not([data-ph=vorher]) .rv-sk .v{display:none}
+.rv-b:not([data-ph=vorher]) .rv-sk .n{display:flex;justify-content:space-between;width:var(--gw)}
+.rv-sk .v{display:flex;justify-content:space-between;width:100%}
+.rv-z{position:relative;width:100%;min-height:4.35em;margin:0;font-size:14px;line-height:1.45;color:var(--muted);text-align:center}
+.rv-z>span{display:none}.rv-z>span.an{display:block}
+.rv-z b{color:var(--text)}
+.rv-u{display:grid;grid-template-columns:1fr 1fr;gap:6px;width:100%;padding:5px;border-radius:16px;background:var(--card);border:1px solid var(--line2)}
+.rv-u button{min-height:48px;padding:6px 10px;border:0;border-radius:11px;font:inherit;font-size:15px;font-weight:700;line-height:1.25;color:var(--muted);
+ background:transparent;cursor:pointer;display:grid;place-content:center;text-align:center;transition:background-color .2s,color .2s}
+.rv-u button small{display:block;font-size:14px;font-weight:600;color:var(--dim);white-space:nowrap}
+@media (max-width:374px){.rv-u .ud{display:none}}   /* schmale Handys: Dauer steht ohnehin im Rahmen */
+.rv-u button[aria-pressed=true]{color:var(--text);background:var(--bg);box-shadow:0 1px 3px rgba(0,0,0,.18),0 0 0 1px var(--line2)}
+.rv-u button[aria-pressed=true] small{color:var(--muted)}
 .rv-fuss{margin:28px auto 0;max-width:620px;font-size:14px;line-height:1.5;color:var(--dim);text-align:center}
-@media (max-width:600px){.rv{padding-bottom:72px}.rv-g{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:8px;margin-top:28px}
- .rv-pf{width:30px;height:30px}.rv-pf svg{width:16px;height:16px}.rv-r{border-radius:14px}
- .rv-et,.rv-d{top:8px;font-size:14px;padding:4px 8px}.rv-et{left:8px;max-width:calc(100% - 16px)}.rv-zus{display:none}
- .rv-d{right:auto;left:8px;top:38px}   /* Handy: Dauer unter das Etikett (14 px passen nicht nebeneinander) */
- .rv-k{bottom:10px;width:44px;height:44px;padding:0;justify-content:center}.rv-k>span>span{display:none}
- .rv-c figcaption{font-size:14px}}
+@supports (height:100svh){.rv-r{width:min(300px,100%,max(180px,calc((100svh - 330px) * .5625)))}}
+@media (max-width:600px){.rv{padding-bottom:72px}.rv-b{margin-top:28px;gap:14px}.rv-r{border-radius:30px;border-width:6px}
+ .rv-et{top:8px;left:8px;padding:4px 8px}.rv-d{left:8px;bottom:12px;padding:4px 8px}
+ .rv-k{right:8px;bottom:8px;width:44px;height:44px;padding:0;justify-content:center}.rv-k>span>span{display:none}}
 
 /* Fakten-Leiste */
 .fakten{padding:84px 0 0}
@@ -725,7 +783,17 @@ html:not(.js) .iphone .tts .fo:not(:first-child){display:none}
 /* Tipp-Kreis auf dem Knopf „Senden“ (Lage gemessen): nur in „druck“, nur transform (Fingerdruck), ohne Inhalt (kein Bild/Text) */
 .iphone .sv-tipp{position:absolute;z-index:1;border-radius:999px;visibility:hidden;box-shadow:0 0 0 .9em rgba(232,52,74,.28),inset 0 0 0 .5em rgba(232,52,74,.55);
  transform:scale(1.25);transition:transform .25s ease}
-.bew .iphone .bs[data-ph=druck] .sv-tipp{visibility:visible;transform:scale(.94)}
+.bew .iphone .bs[data-ph=druck] .sv-tipp:not(.vt){visibility:visible;transform:scale(.94)}
+/* Video-Ablauf v1–v6: je Phase genau EIN Bild sichtbar (hart, visibility – nie zwei halbdurchsichtig), Finger nur in den letzten
+   HS_TIPP_MS (data-tp) auf der Stelle, die zum nächsten Bild führt; „wisch“ = Finger schiebt nach oben (Seite scrollt) */
+.iphone .sv-s.v1,.iphone .sv-s.v2,.iphone .sv-s.v3,.iphone .sv-s.v4,.iphone .sv-s.v5,.iphone .sv-s.v6{visibility:hidden}
+.bew .iphone .bs[data-ph^=v] .sv-s.s1{visibility:hidden}
+.bew .iphone .bs[data-ph=v1] .sv-s.v1,.bew .iphone .bs[data-ph=v2] .sv-s.v2,.bew .iphone .bs[data-ph=v3] .sv-s.v3,
+.bew .iphone .bs[data-ph=v4] .sv-s.v4,.bew .iphone .bs[data-ph=v5] .sv-s.v5,.bew .iphone .bs[data-ph=v6] .sv-s.v6{visibility:visible}
+.bew .iphone .bs[data-ph=v1][data-tp] .sv-tipp.v1,.bew .iphone .bs[data-ph=v2][data-tp] .sv-tipp.v2,.bew .iphone .bs[data-ph=v3][data-tp] .sv-tipp.v3,
+.bew .iphone .bs[data-ph=v4][data-tp] .sv-tipp.v4,.bew .iphone .bs[data-ph=v5][data-tp] .sv-tipp.v5{visibility:visible;transform:scale(.94)}
+.iphone .sv-tipp.wisch{transition:transform .55s cubic-bezier(.3,.7,.2,1)}
+.bew .iphone .bs[data-ph=v3][data-tp] .sv-tipp.wisch{transform:translateY(-320%) scale(.94)}
 .bew .iphone .bs[data-ph=tts] .sv{transform:translateX(-100%);visibility:hidden;transition:transform .6s cubic-bezier(.3,.7,.2,1),visibility 0s linear .6s}
 .bew .iphone .bs[data-ph] .tts{transition:transform .6s cubic-bezier(.3,.7,.2,1)}
 .bew .iphone .bs[data-ph]:not([data-ph=tts]) .tts{transform:translateX(100%)}
@@ -735,7 +803,7 @@ html:not(.js) .iphone .tts .fo:not(:first-child){display:none}
 .bew .iphone .bs[data-ph] .mt{visibility:hidden;transform:translateY(calc(-100% - 17em));transition:transform .55s cubic-bezier(.2,.8,.2,1),visibility 0s linear .55s}
 .bew .iphone .bs[data-ph][data-mt] .mt{visibility:visible;transform:none;transition:transform .55s cubic-bezier(.2,.8,.2,1)}
 .iphone .tts.still .fo{transition:none!important}
-@media (prefers-reduced-motion:reduce){.bew .iphone .bs[data-ph] .sv,.iphone .sv-tipp{display:none}.bew .iphone .bs[data-ph] .mt{visibility:visible;transform:none}
+@media (prefers-reduced-motion:reduce){.bew .iphone .bs[data-ph] .sv,.iphone .sv-tipp,.fenster .maus{display:none}.bew .iphone .bs[data-ph] .mt{visibility:visible;transform:none}
  .bew .iphone .bs[data-ph] .tts,.bew .iphone .bs[data-ph]:not([data-ph=tts]) .tts{transform:none;transition:none}}
 /* Kachel: Produkt-Research (Zusatz 4) = Nachbildung der Studio-Seite „Produkte“: Suchfeld + Zeitraum | 4 Zeilen | Beispielwerte +
    Abbild-Knopf. Ablauf (Skript, data-st 0..3) einmal beim Sichtbarwerden; ohne data-st = Endzustand (ohne JS/„Weniger Bewegung“). */
@@ -902,7 +970,10 @@ var d=document.documentElement;
   var bs=t.parentNode,studio=bs.hasAttribute('data-ph'),
       fo=[].slice.call(t.querySelectorAll('.fo')),st=[].slice.call(t.querySelectorAll('.fs i')),n=fo.length,i=0,sicht=true,
       mq=matchMedia('(prefers-reduced-motion: reduce)'),takt=+t.getAttribute('data-takt')||2200,
-      pz=(bs.getAttribute('data-phasen')||'2400,900,2400').split(',').map(Number),schritte=[],k=0,uhr=null;
+      pz=(bs.getAttribute('data-phasen')||'2400,900,2400').split(',').map(Number),schritte=[],k=0,uhr=null,
+      va=(bs.getAttribute('data-ablauf')||'').split(',').filter(Boolean).map(Number),tp=+bs.getAttribute('data-tipp')||700,
+      fen=document.querySelector('.buehne .fenster'),maus=fen&&fen.querySelector('.maus'),
+      ziel=fen&&fen.querySelector('.ordner3 .o:last-child');
   if(mq.matches||(n<2&&!studio))return;
   function plus(e,a){e.setAttribute(a,String(+(e.getAttribute(a)||0)+1))}
   function striche(){st.forEach(function(s,x){s.className=x<=i?'an':''})}
@@ -911,14 +982,38 @@ var d=document.documentElement;
     fo[i].className='fo weg';fo[j].className='fo an';i=j;striche();plus(t,'data-wechsel');}
   function anfang(){t.classList.add('still');fo.forEach(function(f,x){f.className=x?'fo':'fo an'});i=0;striche();
     void t.offsetWidth;t.classList.remove('still');}
-  function ph(x){bs.setAttribute('data-ph',x);plus(bs,'data-schritt')}
+  function ph(x){bs.setAttribute('data-ph',x);bs.removeAttribute('data-tp');plus(bs,'data-schritt');if(fen)fen.setAttribute('data-ph',x)}
+  /* Mauspfeil: fährt kurz vor dem Druck zum Knopf (Mitte, gemessen), danach zurück in die Ruhelage */
+  function hin(){if(!maus||!ziel||fen.offsetParent===null)return;var f=fen.getBoundingClientRect(),z=ziel.getBoundingClientRect();
+    maus.style.setProperty('--zx',Math.round(z.left-f.left+z.width*.3)+'px');maus.style.setProperty('--zy',Math.round(z.top-f.top+z.height*.5)+'px');}
+  /* Ruhelage (Fable 19.11., Auflage 6 paket0055: bei 820 px lag der Pfeil auf der Pille „Sent“): freie Stelle suchen – Pfeil
+     (22×33 px + 8 px Abstand) berührt keinen Text, keine Pille/Knopf/Kachel/Vorschau und nicht das iPhone; nächste zur Wunschlage. */
+  var BELEGT='.ak .mk,.ak .nv span,.ak .rd,.ak .ac,.hl h4,.hl p,.nz,.pri,.seg3 span,.ordner3 .o,.kz .ab,.kz .su,.zl .th,.zl .t b,.zl .t small,.zl .pill,.zl .sb,.zl .mh';
+  function ruhe(){if(!maus||fen.offsetParent===null)return;var f=fen.getBoundingClientRect(),
+      ip=document.querySelector('.buehne .iphone'),R=[].slice.call(fen.querySelectorAll(BELEGT)).map(function(e){return e.getBoundingClientRect()})
+        .filter(function(q){return q.width>0&&q.height>0});
+    if(ip)R.push(ip.getBoundingClientRect());
+    var A=8,bx=null,bd=1e9,wx=f.width*.62,wy=f.height*.86;
+    for(var y=A;y<=f.height-33-A;y+=6)for(var x=A;x<=f.width-22-A;x+=6){
+      var l=f.left+x-A,t=f.top+y-A,r=f.left+x+22+A,u=f.top+y+33+A,frei=true;
+      for(var q=0;q<R.length;q++){var e=R[q];if(e.left<r&&e.right>l&&e.top<u&&e.bottom>t){frei=false;break}}
+      var d=(x-wx)*(x-wx)+(y-wy)*(y-wy);if(frei&&d<bd){bd=d;bx=[x,y]}}
+    bx=bx||[wx,wy];
+    maus.style.setProperty('--zx',Math.round(bx[0])+'px');maus.style.setProperty('--zy',Math.round(bx[1])+'px');}
+  ruhe();if(studio)setTimeout(function(){if(bs.getAttribute('data-ph')==='studio')hin()},Math.max(0,pz[0]-1100));
+  addEventListener('resize',function(){if(bs.getAttribute('data-ph')==='druck'||bs.getAttribute('data-ph')==='gesendet')hin();else ruhe()});
   if(studio){
     schritte.push([function(){ph('studio');bs.removeAttribute('data-mt');
-      setTimeout(function(){if(bs.getAttribute('data-ph')==='studio'){anfang();plus(bs,'data-runde')}},700)},pz[0]]);
-    schritte.push([function(){ph('druck')},pz[1]]);
+      setTimeout(function(){if(bs.getAttribute('data-ph')==='studio'){anfang();plus(bs,'data-runde')}},700);
+      setTimeout(function(){if(bs.getAttribute('data-ph')==='studio')hin()},Math.max(0,pz[0]-1100))},pz[0]]);
+    schritte.push([function(){ph('druck');hin()},pz[1]]);
     schritte.push([function(){ph('gesendet');bs.setAttribute('data-mt','1')},pz[2]]);
     schritte.push([function(){ph('tts')},takt]);
     for(var x=1;x<n;x++)schritte.push([function(){bs.removeAttribute('data-mt');plus(bs,'data-schritt');weiter()},takt]);
+    /* danach der Video-Ablauf v1–v6 (Finger in den letzten tp ms von v1–v5) */
+    va.forEach(function(ms,j){var nm='v'+(j+1);
+      schritte.push([function(){ph(nm);bs.removeAttribute('data-mt');if(j===0)ruhe()},j<va.length-1?ms-tp:ms]);
+      if(j<va.length-1)schritte.push([function(){bs.setAttribute('data-tp','')},tp]);});
   }else for(var y=0;y<n;y++)schritte.push([weiter,takt]);
   function frei(){return !mq.matches&&sicht&&!document.hidden}
   function tick(){uhr=null;if(!frei()){uhr=setTimeout(tick,250);return}
@@ -949,7 +1044,9 @@ var els=[].slice.call(document.querySelectorAll('.auf'));
 function zeig(e){e.classList.add('da')}
 if(still||!('IntersectionObserver' in window)){els.forEach(zeig)}
 else{var hoch=innerHeight;els.forEach(function(e){if(e.getBoundingClientRect().top<hoch*.92)zeig(e)});
-  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting||en.boundingClientRect.top<0){zeig(en.target);io.unobserve(en.target);}})},{threshold:.08,rootMargin:'0px 0px -6% 0px'});
+  /* 8 % des Blocks ODER 40 px sichtbar (Mikail 19.11. Menü-Sprung: hohe Blöcke wie die Preiskarten auf 320×568 – 8 % wären
+     150 px – blieben nach dem Sprung leer); feine Schwellen (bis 1), damit der Wechsel auch bei hohen Blöcken bzw. nach einem Sprung sicher gemeldet wird */
+  var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting&&(en.intersectionRatio>=.07||en.intersectionRect.height>=40)||en.boundingClientRect.top<0){zeig(en.target);io.unobserve(en.target);}})},{threshold:[0,.01,.02,.03,.04,.05,.06,.07,.08,.1,.25,.5,1],rootMargin:'0px 0px -6% 0px'});
   els.forEach(function(e){if(!e.classList.contains('da'))io.observe(e)});}
 /* Sprach-Menü (Nutzer 17.11.): Knopf öffnet/schließt; Wahl schaltet um und merkt sie für alle Seiten (sessionStorage).
    Kein Springen: vor dem Umschalten das oberste sichtbare, in BEIDEN Sprachen vorhandene Element merken und danach so
@@ -1019,26 +1116,61 @@ if(nl.length&&'IntersectionObserver' in window){
    scrollt die Seite, touch-action:pan-y); Tippen setzt die Linie; Tastatur am Griff (role=slider): Pfeile, Bild auf/ab, Pos1/Ende.
    Hinweis: sobald der Rahmen KOMPLETT sichtbar ist, fährt die Linie EINMAL Mitte -> 25 % -> 75 % -> Mitte (1,8 s, ease-in-out)
    und am Griff steht „Verschieben“ (weg beim Ziehen, sonst nach 3 s). „Weniger Bewegung“: keine Fahrt, Schild nur kurz. */
-/* Rohvideo-Vergleich (Punkt n): beide Clips laufen stumm in Schleife, solange der Block sichtbar ist (erst dann wird geladen);
-   bei „Weniger Bewegung“ nie von selbst – Poster + „Abspielen“. Knopf/Tipp aufs Video: abspielen bzw. Ton an/aus, immer nur EIN
-   Clip mit Ton (der andere wird stumm). Native Steuerung nur ohne JS. */
-(function(){var rv=document.querySelector('.rv');if(!rv)return;
-  var vs=[].slice.call(rv.querySelectorAll('video')),ks=[].slice.call(rv.querySelectorAll('.rv-k')),still=matchMedia('(prefers-reduced-motion: reduce)').matches,sicht=false;
+/* Rohvideo-Vergleich (Punkt n, NEU 19.11.): EIN Rahmen, immer nur EIN Video läuft. Sichtbar (≥ 35 %) und ohne „Weniger
+   Bewegung“: Vorher stumm von vorn, Zeitleiste färbt erreichte Stücke (Zeiten aus data-von/-bis = Schnittprotokoll), Ende ->
+   „schrumpf“ (rote Stücke fallen weg) -> Nachher spielt -> Ende: Umschalter zum erneut Ansehen. Laden erst beim Abspielen
+   (preload=none, Nachher wird gegen Ende des Vorher vorgeladen). Ton nur per Tipp (Knopf/Video), gilt für beide.
+   „Weniger Bewegung“: nichts von selbst, keine Übergänge – Knopf „Abspielen“ + Umschalter. Ohne JS: beide Videos mit Steuerung. */
+(function(){var b=document.querySelector('.rv-b');if(!b)return;
+  var V={vorher:b.querySelector('.rv-v[data-art=vorher]'),nachher:b.querySelector('.rv-v[data-art=nachher]')},k=b.querySelector('.rv-k'),
+    dz=b.querySelector('.rv-d'),ph=b.querySelector('.rv-ph'),us=[].slice.call(b.querySelectorAll('.rv-u button')),
+    still=matchMedia('(prefers-reduced-motion: reduce)').matches,ton=false,auto=!still,akt='vorher',sicht=false,gestartet=false,tm=null,raf=0;
+  var segs=[].slice.call(b.querySelectorAll('.rv-s[data-von]')),chips=[].slice.call(b.querySelectorAll('.rv-chip')),
+    caps=[].slice.call(b.querySelectorAll('.rv-z>span')),gesamt=parseFloat(b.getAttribute('data-roh-s')),rv0=parseFloat(b.getAttribute('data-roh-von'));
   var T={p:['Abspielen','Play'],an:['Ton an','Sound on'],aus:['Ton aus','Sound off']};
-  vs.forEach(function(v){v.removeAttribute('controls');v.muted=true});
-  function stand(){vs.forEach(function(v,i){var k=ks[i];if(!k)return;var st=v.paused?'p':(v.muted?'an':'aus');k.setAttribute('data-st',st);
-    k.setAttribute('data-aria-de',T[st][0]);k.setAttribute('data-aria-en',T[st][1]);k.setAttribute('aria-label',T[st][d.getAttribute('data-l')==='en'?1:0])})}
-  function spiel(v){if(v.preload!=='auto')v.preload='auto';var q=v.play();if(q&&q.catch)q.catch(function(){stand()});}
-  function tipp(i){var v=vs[i];if(!v)return;
-    if(v.paused){vs.forEach(function(o){if(o!==v)o.muted=true});v.muted=false;spiel(v)}
-    else if(v.muted){vs.forEach(function(o){if(o!==v)o.muted=true});v.muted=false}
-    else v.muted=true;
-    stand();}
-  ks.forEach(function(k,i){k.addEventListener('click',function(e){e.stopPropagation();tipp(i)})});
-  vs.forEach(function(v,i){v.addEventListener('click',function(){tipp(i)});['play','pause','volumechange'].forEach(function(t){v.addEventListener(t,stand)})});
+  [V.vorher,V.nachher].forEach(function(v){v.removeAttribute('controls');v.muted=true});
+  function mmss(x){x=Math.max(0,Math.floor(x));return Math.floor(x/60)+':'+('0'+x%60).slice(-2)}
+  function cap(n){caps.forEach(function(c){c.classList.toggle('an',c.getAttribute('data-c')===n)})}
+  function knopf(){var v=V[akt],st=v.paused?'p':(v.muted?'an':'aus');k.setAttribute('data-st',st);k.setAttribute('data-aria-de',T[st][0]);
+    k.setAttribute('data-aria-en',T[st][1]);k.setAttribute('aria-label',T[st][document.documentElement.getAttribute('data-l')==='en'?1:0])}
+  function stand(){var v=V[akt],t=v.currentTime||0;
+    if(akt==='vorher'){var c='v-start';
+      segs.forEach(function(s,i){var a=parseFloat(s.getAttribute('data-von'));var an=t>=a&&(v.currentTime>0||!v.paused);s.classList.toggle('an',an);
+        if(an)c='v'+i});
+      chips.forEach(function(ch){ch.classList.toggle('an',t>=parseFloat(ch.getAttribute('data-von'))&&(v.currentTime>0||!v.paused))});
+      if(b.getAttribute('data-ph')==='vorher')cap(c);dz.textContent=mmss(rv0+t);ph.style.setProperty('--p',(t/gesamt*100).toFixed(2))}
+    else{var n=parseFloat(b.getAttribute('data-n2'));cap(t<n?'n1':'n2');dz.textContent=mmss(t);ph.style.setProperty('--p',(t/gesamt*100).toFixed(2))}
+    knopf()}
+  function schleife(){cancelAnimationFrame(raf);stand();if(!V[akt].paused)raf=requestAnimationFrame(schleife)}
+  function zeige(art){akt=art;b.setAttribute('data-ph',art);V.vorher.classList.toggle('an',art==='vorher');V.nachher.classList.toggle('an',art==='nachher');
+    us.forEach(function(u){u.setAttribute('aria-pressed',String(u.getAttribute('data-art')===art))});}
+  function spiel(art,vonVorn){clearTimeout(tm);var v=V[art],o=V[art==='vorher'?'nachher':'vorher'];o.pause();
+    if(akt!==art)zeige(art);if(v.preload!=='auto')v.preload='auto';if(vonVorn&&v.currentTime>0)v.currentTime=0;v.muted=!ton;
+    var q=v.play();if(q&&q.catch)q.catch(function(){knopf()});gestartet=true;schleife()}
+  V.vorher.addEventListener('timeupdate',function(){if(V.vorher.duration&&V.vorher.currentTime>V.vorher.duration-4&&V.nachher.preload!=='auto')V.nachher.preload='auto'});
+  V.vorher.addEventListener('ended',function(){stand();if(!auto)return;b.setAttribute('data-ph','schrumpf');cap('s');ph.style.setProperty('--p','0');
+    tm=setTimeout(function(){spiel('nachher',true)},1600)});
+  V.nachher.addEventListener('ended',function(){auto=false;stand();cap('e');knopf()});
+  [V.vorher,V.nachher].forEach(function(v){['play','pause','volumechange','seeked'].forEach(function(e){v.addEventListener(e,function(){if(v===V[akt])schleife()})});
+    v.addEventListener('click',tipp)});
+  function tipp(){var v=V[akt];if(v.paused){ton=true;spiel(akt,v.ended)}else{ton=v.muted;v.muted=!ton}knopf()}
+  k.addEventListener('click',function(e){e.stopPropagation();tipp()});
+  us.forEach(function(u){u.addEventListener('click',function(){auto=false;spiel(u.getAttribute('data-art'),true)})});
   if(!still&&'IntersectionObserver' in window){new IntersectionObserver(function(es){es.forEach(function(en){sicht=en.isIntersecting&&en.intersectionRatio>=.35;
-      vs.forEach(function(v){if(sicht){if(v.paused)spiel(v)}else if(!v.paused)v.pause()})})},{threshold:[0,.35,.6]}).observe(rv.querySelector('.rv-g'));}
-  stand();})();
+      var v=V[akt];if(sicht){if(!gestartet&&auto)spiel('vorher',true);else if(v.paused&&!v.ended&&b.hasAttribute('data-lief'))v.play()}
+      else if(!v.paused){b.setAttribute('data-lief','');v.pause()}
+      if(sicht)b.removeAttribute('data-lief')})},{threshold:[0,.35,.6]}).observe(b.querySelector('.rv-r'));}
+  /* Schilder der Zeitleiste: Mitte über ihrem Stück, aber nie übereinander/aus der Leiste (z. B. „Doppelt gesagt“ + „Ähm“ bei 320 px) */
+  function schilder(){var W=b.querySelector('.rv-tl').clientWidth,l=[],x=0;if(!W)return;
+    chips.forEach(function(c){c.style.removeProperty('--x')});
+    chips.forEach(function(c,i){var w=c.offsetWidth,m=parseFloat(c.style.getPropertyValue('--m'))/100*W;l[i]=Math.min(Math.max(0,m-w/2),W-w)});
+    chips.forEach(function(c,i){if(i&&l[i]<x)l[i]=x;x=l[i]+c.offsetWidth+6});
+    for(var i=chips.length-1;i>=0;i--){var w=chips[i].offsetWidth,r=i<chips.length-1?l[i+1]-6:W;if(l[i]+w>r)l[i]=Math.max(0,r-w)}
+    chips.forEach(function(c,i){c.style.setProperty('--x',l[i].toFixed(1)+'px')})}
+  schilder();addEventListener('resize',schilder);
+  if(window.MutationObserver)new MutationObserver(schilder).observe(document.documentElement,{attributes:true,attributeFilter:['data-l']});
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(schilder);
+  zeige('vorher');stand();})();
 [].forEach.call(document.querySelectorAll('.vn'),function(r){
   var g=r.querySelector('.vn-g'),tipp=r.querySelector('.vn-tipp'),et=[].slice.call(r.querySelectorAll('.vn-et')),lauf=null,tz=null,start=null,gezeigt=0;
   var paare=[].slice.call(r.querySelectorAll('.vn-paar')),mk=r.querySelector('.vn-mark'),akt=0,vis=0,wz=0;
@@ -1139,8 +1271,27 @@ var pr=document.querySelector('.preise');
 var aus=/^(seite-|start$)/,still=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function el(id){try{return document.getElementById(decodeURIComponent(id))}catch(x){return null}}
 function sicht(e){return !!(e&&e.getClientRects().length)}
+/* Menü-Sprung mittig (Mikail 19.11. ~15:00): Ziel = Überschrift-Block (Kicker + h2) bis Ende des Kerns ([data-kern], sonst der
+   ganze Abschnitt), gemessen (offsetTop-Kette = ohne Einblend-transform). Passt beides unter die Kopfleiste: Kern in die Mitte der
+   sichtbaren Fläche, Überschrift und Kern-Ende bleiben sichtbar. Passt es nicht: Überschrift knapp (LUFT) unter der Kopfleiste
+   und vom Kern so viel wie möglich. */
+var LUFT=16;
+function oben(e){var y=0;for(var x=e;x;x=x.offsetParent)y+=x.offsetTop;return y}
+function kopf(){var t=document.querySelector('header.top');if(!t)return 0;var p=getComputedStyle(t).position;
+  return p==='sticky'||p==='fixed'?t.offsetHeight:0}
+function zielY(e){var k=e.querySelector('[data-kern]')||e,h=e.querySelector('h1,h2')||e,
+    hk=h!==e&&h.parentElement!==e?h.parentElement.firstElementChild:h,
+    top=Math.min(oben(hk),oben(k)),kt=oben(k),kb=kt+k.offsetHeight,kh=kopf(),H=innerHeight-kh,y;
+  if(kb-top+2*LUFT<=H){y=(kt+kb)/2-kh-H/2;y=Math.min(y,top-kh-LUFT);y=Math.max(y,kb+LUFT-innerHeight)}
+  else{y=top-kh-LUFT;
+    /* kleiner Bildschirm (z. B. 320×568 Preise): vom Kern mind. das erste Stück (bis 120 px) zeigen – dafür darf der Kicker
+       hinter die Leiste, die h2 bleibt ganz sichtbar (≥ 8 px darunter) */
+    var f=k.firstElementChild,mehr=kt+Math.min(f?f.offsetHeight:k.offsetHeight,120)+LUFT-innerHeight-y;
+    if(mehr>0)y+=Math.max(0,Math.min(mehr,oben(h)-kh-8-y));}
+  return Math.max(0,Math.min(Math.round(y),document.documentElement.scrollHeight-innerHeight))}
+window.acZielY=zielY;   /* für den Test (gleiche Messung) */
 /* sanft = Klick (weich scrollen); sonst sofort ('instant' – 'auto' hieße wegen html{scroll-behavior:smooth} auch weich) */
-function geh(e,sanft){e.scrollIntoView({behavior:sanft&&!still?'smooth':'instant',block:'start'});
+function geh(e,sanft){scrollTo({top:zielY(e),behavior:sanft&&!still?'smooth':'instant'});
   if(!/^(A|BUTTON|INPUT|SELECT|TEXTAREA|SUMMARY)$/.test(e.tagName)&&!e.hasAttribute('tabindex'))e.setAttribute('tabindex','-1');
   try{e.focus({preventScroll:true})}catch(x){}}
 document.addEventListener('click',function(ev){
