@@ -1,4 +1,5 @@
 <!doctype html><html lang="de" data-l="de"><head><meta charset="utf-8"><title>Impressum · AutoCutAI</title><link rel="canonical" href="https://autocutai.de/imprint"><meta http-equiv="refresh" content="0; url=imprint"><meta name="robots" content="noindex"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark light"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><script>(function(){var d=document.documentElement,l=null;d.className+=' js'+(matchMedia('(prefers-reduced-motion: reduce)').matches?'':' bew');try{l=sessionStorage.getItem('lang')}catch(e){}
+var q=/[?&]l=(de|en)(?:&|#|$)/.exec(location.search);if(q){l=q[1];try{sessionStorage.setItem('lang',l)}catch(e){}}
 if(l!=='de'&&l!=='en'){l=(((navigator.languages&&navigator.languages[0])||navigator.language||'de')+'').toLowerCase().indexOf('de')===0?'de':'en';}
 d.setAttribute('data-l',l);d.lang=l;})()</script><style>
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:200 800;font-display:swap;src:url(fonts/plus-jakarta-sans-latin-ext.woff2?v=1) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
@@ -241,15 +242,21 @@ section{padding:120px 0}
  padding:0 8.2em 0 10.6em;color:#111;z-index:2}
 .iphone .sb b{font-size:4.25em;font-weight:600;letter-spacing:-.01em;line-height:1;font-family:-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',system-ui,sans-serif}
 .iphone .sb svg{height:3.6em;width:auto}
-.iphone .mt{position:absolute;left:3.4em;right:3.4em;top:15em;z-index:4;display:flex;align-items:center;gap:3.2em;padding:3.2em 4em 3.4em 3.4em;
- border-radius:7.4em;background:rgba(246,246,248,.80);-webkit-backdrop-filter:blur(1.6em) saturate(1.6);backdrop-filter:blur(1.6em) saturate(1.6);
- color:#000;box-shadow:0 .8em 2.4em -.8em rgba(0,0,0,.3);font-family:-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',system-ui,sans-serif}
-.iphone .mt img{flex:none;width:12.6em;height:12.6em;border-radius:2.9em}
+/* iOS-Mitteilung (Mikail 22.11. ~03:30 „cleaner“): Maße wie iOS 17 umgerechnet (1 pt ≈ 0,242 em bei 393 pt Bildschirmbreite):
+   Rand 10 pt, Ecke 22 pt, Icon 38 pt mit iOS-Rundung, Titel/Text 15 pt (Titel fett, „jetzt“ rechts grau), Text höchstens 2 Zeilen
+   (Test misst), Milchglas hell/dunkel wie das System, ruhiger Schatten; Abstand zur Statusleiste (.sb endet bei 11 em) 4 em. */
+.iphone .mt{position:absolute;left:2.6em;right:2.6em;top:15em;z-index:4;display:flex;align-items:center;gap:2.9em;padding:3.3em 3.6em 3.3em 3.3em;
+ border-radius:5.3em;background:rgba(40,40,44,.74);-webkit-backdrop-filter:blur(2.4em) saturate(1.8);backdrop-filter:blur(2.4em) saturate(1.8);
+ color:#fff;box-shadow:0 1.2em 3.6em -1.4em rgba(0,0,0,.42),inset 0 0 0 .25em rgba(255,255,255,.06);
+ font-family:-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',system-ui,sans-serif}
+.iphone .mt img{flex:none;width:9.2em;height:9.2em;border-radius:2.1em}
 .iphone .mt>span{flex:1;min-width:0}
-.iphone .mt .k{display:flex;justify-content:space-between;gap:2em;font-size:4.1em;line-height:1.25}
+.iphone .mt .k{display:flex;justify-content:space-between;align-items:baseline;gap:2em;font-size:3.65em;line-height:1.3}
 .iphone .mt .k b{font-weight:600}
-.iphone .mt .k small{font-size:.9em;color:rgba(60,60,67,.62);white-space:nowrap}
-.iphone .mt .t{display:block;margin-top:.3em;font-size:4.1em;line-height:1.25;color:#000}
+.iphone .mt .k small{font-size:.88em;color:rgba(235,235,245,.6);white-space:nowrap}
+.iphone .mt .t{display:block;font-size:3.65em;line-height:1.3;color:#fff}
+@media (prefers-color-scheme:light){.iphone .mt{background:rgba(246,246,248,.80);color:#000;box-shadow:0 1.2em 3.6em -1.4em rgba(0,0,0,.26)}
+ .iphone .mt .k small{color:rgba(60,60,67,.6)}.iphone .mt .t{color:#000}}
 .iphone .home{position:absolute;left:50%;bottom:2em;width:36em;height:1.35em;margin-left:-18em;border-radius:1em;background:rgba(255,255,255,.92);z-index:2}
 .buehne .iphone{position:absolute;right:1.5%;bottom:-9%;--w:clamp(188px,17vw,240px)}
 @media (max-width:760px){.fenster{display:none}.buehne{display:flex;justify-content:center;padding:0 .8em}
@@ -364,6 +371,18 @@ section{padding:120px 0}
    Danach Umschalter Vorher/Nachher. Bewegung nur über left/width/opacity der kleinen Leiste; bei „Weniger Bewegung“ keine. */
 .rv{margin:8px auto 0;padding:0 0 96px;max-width:860px}
 .rv .mitte{max-width:640px}
+/* Mehrere Beispiele (22.11.): Pillen wie der Vorher/Nachher-Umschalter; alle Beispiele in EINER Rasterzelle (Höhe = größtes ->
+   Umschalten ohne Layout-Sprung), nicht gewähltes unsichtbar + inert (JS). Ohne JS nur das erste Beispiel, keine Pillen. */
+.rv-bsp{display:flex;justify-content:center;gap:4px;width:max-content;max-width:100%;margin:20px auto 0;padding:5px;border-radius:999px;
+ background:var(--card);border:1px solid var(--line2)}
+.rv-bsp button{min-height:44px;min-width:44px;padding:0 20px;border:0;border-radius:999px;font:inherit;font-size:15px;font-weight:700;
+ color:var(--muted);background:transparent;cursor:pointer;transition:background-color .2s,color .2s}
+.rv-bsp button[aria-pressed=true]{color:var(--text);background:var(--bg);box-shadow:0 1px 3px rgba(0,0,0,.18),0 0 0 1px var(--line2)}
+.rv-bsp button:focus-visible{outline:2px solid var(--red2);outline-offset:3px}
+.rv-st{display:grid}
+.rv-x{grid-area:1/1;min-width:0}
+.rv-x:not(.an){visibility:hidden;opacity:0;pointer-events:none}
+html:not(.js) .rv-bsp,html:not(.js) .rv-x:not(.an){display:none}
 .rv-h{margin:6px 0 0;font-size:clamp(28px,4.2vw,44px);font-weight:800;letter-spacing:-.035em;line-height:1.08}
 .rv-b{display:grid;justify-items:center;gap:18px;margin:40px auto 0;max-width:560px}
 /* Rahmen so groß, dass Rahmen + Zeitleiste + Text + Umschalter zusammen auf den Bildschirm passen (svh = sichtbare Höhe am Handy) */
@@ -848,20 +867,17 @@ html:not(.js) .iphone .tts .fo:not(:first-child){display:none}
  100%{box-shadow:inset 0 0 0 1px var(--line3),0 0 0 0 rgba(232,52,74,0)}}
 @container (max-width:460px){.pr-z{grid-template-columns:32px minmax(0,1fr) auto 52px;gap:8px;padding:8px 6px}.pr-pl,.spark{display:none}.pr-ic{width:32px;height:32px}
  .pr-l{flex-wrap:wrap}.pr-such{flex-basis:100%}.pr-f{flex-wrap:wrap}}
-/* Zeitersparnis (Zusatz 10, 18.11.): EINE Karte, je Aufgabe 2 Balken (von Hand = grau, Spanne hell; AutoCutAI = rot), Summe,
-   Fußnote mit Quelle. Balken wachsen EINMAL beim Sichtbarwerden (.da vom Einblenden), ohne JS/„Weniger Bewegung“ fertig. */
-.zeit{max-width:760px;margin:48px auto 0;padding:28px 32px 26px;text-align:left}
-.zt-z+.zt-z{margin-top:24px;padding-top:22px;border-top:1px solid var(--line)}
-.zt-n{display:block;margin:0 0 12px;font-size:17px;font-weight:700;letter-spacing:-.01em}
-.zt-b+.zt-b{margin-top:12px}
-.zt-b small{display:block;margin-top:5px;font-size:14px;color:var(--muted)}
-.zt-bar{position:relative;display:block;height:12px;border-radius:6px;background:var(--inner)}
-.zt-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;transform-origin:0 50%;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
-.zt-bar.hand i:first-child{width:calc(var(--b) * 100%);background:var(--line4)}
-.zt-bar.hand i+i{width:calc(var(--a) * 100%);background:var(--muted)}
-.zt-bar.ac i{width:calc(var(--a) * 100%);background:var(--red);transition-delay:.25s}
+/* Zeitersparnis (Zusatz 10, 18.11.; neu Mikail 22.11. „1000x besser“): EINE Karte. Oben die Hauptaussage groß (≈ 7 Std.
+   pro Monat gespart + Rechnung), darunter je Aufgabe Name · Balken · Wert auf EINER Achse. Von Hand = neutral grau (Spanne
+   heller), AutoCutAI = Markenrot; Text nie in Serienfarbe. Balken wachsen EINMAL beim Sichtbarwerden (.da vom Einblenden),
+   ohne JS/„Weniger Bewegung“ fertig. Endgültige Regeln stehen in ZEIT_CSS (nach Paket 3, überschreibt nichts Fremdes). */
+.zeit{max-width:760px;margin:48px auto 0;padding:30px 34px 28px;text-align:left}
+.zt-bar{position:relative;display:block;height:10px;border-radius:5px;background:var(--inner)}
+.zt-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:5px;transform-origin:0 50%;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.zt-bar.hand i:first-child{width:calc(var(--b) * 100%)}
+.zt-bar.hand i+i{width:calc(var(--a) * 100%)}
+.zt-bar.ac i{width:calc(var(--a) * 100%);transition-delay:.25s}
 .js .zeit:not(.da) .zt-bar i{transform:scaleX(0)}
-.zt-summe{margin:24px 0 0;font-size:16px;font-weight:600;line-height:1.5;color:var(--soft);text-wrap:pretty}
 /* Kostenvergleich (Punkt d): EINE Karte, zwei Seiten (Cutter-Beispiel grau, AutoCutAI rot), Annahmen direkt an jeder Zahl */
 .kosten{max-width:860px;margin:48px auto 0;padding:30px 34px 28px;text-align:left}
 .ko-m{margin:0 0 18px;font-size:15px;font-weight:600;line-height:1.45;color:var(--soft);text-align:center}

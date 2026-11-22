@@ -1,6 +1,22 @@
 <!doctype html><html lang="de" data-l="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Impressum · AutoCutAI</title><meta name="description" content="Impressum / Imprint – AutoCutAI (Mikail Gül - Onlinehandel)"><link rel="canonical" href="https://autocutai.de/imprint"><meta name="color-scheme" content="dark light"><meta name="theme-color" content="#0E0E10" media="(prefers-color-scheme: dark)"><meta name="theme-color" content="#F2F2F5" media="(prefers-color-scheme: light)"><meta property="og:title" content="Impressum · AutoCutAI"><meta property="og:description" content="Impressum / Imprint – AutoCutAI (Mikail Gül - Onlinehandel)"><link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"><link rel="icon" type="image/png" sizes="64x64" href="favicon-64.png"><link rel="apple-touch-icon" href="apple-touch-icon.png"><script>(function(){var d=document.documentElement,l=null;d.className+=' js'+(matchMedia('(prefers-reduced-motion: reduce)').matches?'':' bew');try{l=sessionStorage.getItem('lang')}catch(e){}
+var q=/[?&]l=(de|en)(?:&|#|$)/.exec(location.search);if(q){l=q[1];try{sessionStorage.setItem('lang',l)}catch(e){}}
 if(l!=='de'&&l!=='en'){l=(((navigator.languages&&navigator.languages[0])||navigator.language||'de')+'').toLowerCase().indexOf('de')===0?'de':'en';}
-d.setAttribute('data-l',l);d.lang=l;})()</script><style>
+d.setAttribute('data-l',l);d.lang=l;})()</script><script>(function(){var d=document.documentElement,t=null,sys=matchMedia('(prefers-color-scheme: light)'),hoerer=[];
+try{t=localStorage.getItem('thema')}catch(e){}if(t!=='hell'&&t!=='dunkel')t=null;
+function hell(){return t?t==='hell':sys.matches}
+function quellen(w){[].forEach.call((w||d).querySelectorAll('source[data-th-q]'),function(s){s.media=t?(t==='hell'?'all':'not all'):'(prefers-color-scheme: light)'})}
+function farbe(){[].forEach.call(d.querySelectorAll('meta[name=theme-color]'),function(m){if(!m.hasAttribute('data-th-m'))m.setAttribute('data-th-m',m.getAttribute('media')||'');
+  var mm=m.getAttribute('data-th-m');m.setAttribute('media',t?((mm.indexOf('light')>0)===(t==='hell')?'all':'not all'):mm)})}
+function setz(x){t=x;if(t)d.setAttribute('data-th',t);else d.removeAttribute('data-th');quellen();farbe();
+  hoerer.forEach(function(f){try{f()}catch(e){}})}
+if(t)d.setAttribute('data-th',t);farbe();
+/* Bilder schon beim Einlesen umstellen (vor dem Laden/Zeichnen), danach einmal alle */
+if(t&&window.MutationObserver){var mo=new MutationObserver(function(ms){ms.forEach(function(m){[].forEach.call(m.addedNodes,function(n){
+  if(n.nodeType===1){if(n.matches&&n.matches('source[data-th-q]'))quellen(n.parentNode);else if(n.querySelector&&n.querySelector('source[data-th-q]'))quellen(n)}})})});
+  mo.observe(d,{childList:true,subtree:true});document.addEventListener('DOMContentLoaded',function(){quellen();mo.disconnect()})}
+if(sys.addEventListener)sys.addEventListener('change',function(){if(!t)hoerer.forEach(function(f){try{f()}catch(e){}})});
+window.ACThema={get matches(){return hell()},addEventListener:function(_,f){hoerer.push(f)},
+  wechsel:function(){var n=hell()?'dunkel':'hell';try{localStorage.setItem('thema',n)}catch(e){}setz(n);return n}};})()</script><style>
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:200 800;font-display:swap;src:url(fonts/plus-jakarta-sans-latin-ext.woff2?v=1) format('woff2');unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C4,U+2113,U+2C60-2C7F,U+A720-A7FF}
 @font-face{font-family:'Plus Jakarta Sans';font-style:normal;font-weight:200 800;font-display:swap;src:url(fonts/plus-jakarta-sans-latin.woff2?v=1) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
 
@@ -15,7 +31,7 @@ d.setAttribute('data-l',l);d.lang=l;})()</script><style>
  --cardline:var(--line);--cardsh:inset 0 1px 0 rgba(255,255,255,.06),0 1px 2px rgba(0,0,0,.4),0 12px 32px -16px rgba(0,0,0,.7);
  --shadow:0 30px 80px -30px rgba(0,0,0,.8);
  --red:#E8344A;--red2:#FF5C6C;--btn:#D92D43;--btnh:#C42539;--redt:#FF5C6C;--redbg:rgba(232,52,74,.14)}
-@media (prefers-color-scheme:light){:root{color-scheme:light;
+@media (prefers-color-scheme:light){:root:where(:not([data-th=dunkel])){color-scheme:light;
  --bg:#F2F2F5;--bar:rgba(255,255,255,.72);--card:#FFFFFF;--inner:#F5F5F7;--raise:#FFFFFF;--hover:#F0F0F3;--chip:#EBEBEF;--field:#FFFFFF;--toast:#FFFFFF;
  --line:rgba(0,0,0,.07);--line2:rgba(0,0,0,.10);--line3:rgba(0,0,0,.15);--line4:rgba(0,0,0,.22);
  --text:#1D1D1F;--muted:#68686D;--soft:#3A3A3C;--dim:#6A6A6F;
@@ -24,7 +40,16 @@ d.setAttribute('data-l',l);d.lang=l;})()</script><style>
  --raster:rgba(0,0,0,.05);--licht:rgba(255,255,255,.95);
  --cardline:rgba(0,0,0,.06);--cardsh:0 1px 2px rgba(0,0,0,.04),0 10px 28px -14px rgba(0,0,0,.14);
  --shadow:0 30px 70px -34px rgba(0,0,0,.28);
- --redt:#C81E34;--redbg:rgba(232,52,74,.09)}}
+ --redt:#C81E34;--redbg:rgba(232,52,74,.09)}}:root:where([data-th=hell]){color-scheme:light;
+ --bg:#F2F2F5;--bar:rgba(255,255,255,.72);--card:#FFFFFF;--inner:#F5F5F7;--raise:#FFFFFF;--hover:#F0F0F3;--chip:#EBEBEF;--field:#FFFFFF;--toast:#FFFFFF;
+ --line:rgba(0,0,0,.07);--line2:rgba(0,0,0,.10);--line3:rgba(0,0,0,.15);--line4:rgba(0,0,0,.22);
+ --text:#1D1D1F;--muted:#68686D;--soft:#3A3A3C;--dim:#6A6A6F;
+ --in-fg:#1D4FB8;--on-fg:#0F6E44;--on-bg:#DDF5E9;--ok:#0F6E44;--okbg:#DDF5E9;
+ --seg-schiene:rgba(118,118,128,.12);--seg-aus:#5F5F64;--seg-pille:#fff;--seg-schatten:0 1px 1px rgba(0,0,0,.05),0 3px 10px -3px rgba(0,0,0,.18),0 0 0 .5px rgba(0,0,0,.05);
+ --raster:rgba(0,0,0,.05);--licht:rgba(255,255,255,.95);
+ --cardline:rgba(0,0,0,.06);--cardsh:0 1px 2px rgba(0,0,0,.04),0 10px 28px -14px rgba(0,0,0,.14);
+ --shadow:0 30px 70px -34px rgba(0,0,0,.28);
+ --redt:#C81E34;--redbg:rgba(232,52,74,.09)}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:84px;background:var(--bg)}
 [tabindex="-1"]:focus{outline:none}   /* Sprungziele (ANKER_JS) bekommen Fokus, aber keinen Rahmen */
@@ -241,15 +266,20 @@ section{padding:120px 0}
  padding:0 8.2em 0 10.6em;color:#111;z-index:2}
 .iphone .sb b{font-size:4.25em;font-weight:600;letter-spacing:-.01em;line-height:1;font-family:-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',system-ui,sans-serif}
 .iphone .sb svg{height:3.6em;width:auto}
-.iphone .mt{position:absolute;left:3.4em;right:3.4em;top:15em;z-index:4;display:flex;align-items:center;gap:3.2em;padding:3.2em 4em 3.4em 3.4em;
- border-radius:7.4em;background:rgba(246,246,248,.80);-webkit-backdrop-filter:blur(1.6em) saturate(1.6);backdrop-filter:blur(1.6em) saturate(1.6);
- color:#000;box-shadow:0 .8em 2.4em -.8em rgba(0,0,0,.3);font-family:-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',system-ui,sans-serif}
-.iphone .mt img{flex:none;width:12.6em;height:12.6em;border-radius:2.9em}
+/* iOS-Mitteilung (Mikail 22.11. ~03:30 „cleaner“): Maße wie iOS 17 umgerechnet (1 pt ≈ 0,242 em bei 393 pt Bildschirmbreite):
+   Rand 10 pt, Ecke 22 pt, Icon 38 pt mit iOS-Rundung, Titel/Text 15 pt (Titel fett, „jetzt“ rechts grau), Text höchstens 2 Zeilen
+   (Test misst), Milchglas hell/dunkel wie das System, ruhiger Schatten; Abstand zur Statusleiste (.sb endet bei 11 em) 4 em. */
+.iphone .mt{position:absolute;left:2.6em;right:2.6em;top:15em;z-index:4;display:flex;align-items:center;gap:2.9em;padding:3.3em 3.6em 3.3em 3.3em;
+ border-radius:5.3em;background:rgba(40,40,44,.74);-webkit-backdrop-filter:blur(2.4em) saturate(1.8);backdrop-filter:blur(2.4em) saturate(1.8);
+ color:#fff;box-shadow:0 1.2em 3.6em -1.4em rgba(0,0,0,.42),inset 0 0 0 .25em rgba(255,255,255,.06);
+ font-family:-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',system-ui,sans-serif}
+.iphone .mt img{flex:none;width:9.2em;height:9.2em;border-radius:2.1em}
 .iphone .mt>span{flex:1;min-width:0}
-.iphone .mt .k{display:flex;justify-content:space-between;gap:2em;font-size:4.1em;line-height:1.25}
+.iphone .mt .k{display:flex;justify-content:space-between;align-items:baseline;gap:2em;font-size:3.65em;line-height:1.3}
 .iphone .mt .k b{font-weight:600}
-.iphone .mt .k small{font-size:.9em;color:rgba(60,60,67,.62);white-space:nowrap}
-.iphone .mt .t{display:block;margin-top:.3em;font-size:4.1em;line-height:1.25;color:#000}
+.iphone .mt .k small{font-size:.88em;color:rgba(235,235,245,.6);white-space:nowrap}
+.iphone .mt .t{display:block;font-size:3.65em;line-height:1.3;color:#fff}
+@media (prefers-color-scheme:light){:where(html:not([data-th=dunkel])) .iphone .mt{background:rgba(246,246,248,.80);color:#000;box-shadow:0 1.2em 3.6em -1.4em rgba(0,0,0,.26)}:where(html:not([data-th=dunkel])) .iphone .mt .k small{color:rgba(60,60,67,.6)}:where(html:not([data-th=dunkel])) .iphone .mt .t{color:#000}}:where(html[data-th=hell]) .iphone .mt{background:rgba(246,246,248,.80);color:#000;box-shadow:0 1.2em 3.6em -1.4em rgba(0,0,0,.26)}:where(html[data-th=hell]) .iphone .mt .k small{color:rgba(60,60,67,.6)}:where(html[data-th=hell]) .iphone .mt .t{color:#000}
 .iphone .home{position:absolute;left:50%;bottom:2em;width:36em;height:1.35em;margin-left:-18em;border-radius:1em;background:rgba(255,255,255,.92);z-index:2}
 .buehne .iphone{position:absolute;right:1.5%;bottom:-9%;--w:clamp(188px,17vw,240px)}
 @media (max-width:760px){.fenster{display:none}.buehne{display:flex;justify-content:center;padding:0 .8em}
@@ -364,6 +394,18 @@ section{padding:120px 0}
    Danach Umschalter Vorher/Nachher. Bewegung nur über left/width/opacity der kleinen Leiste; bei „Weniger Bewegung“ keine. */
 .rv{margin:8px auto 0;padding:0 0 96px;max-width:860px}
 .rv .mitte{max-width:640px}
+/* Mehrere Beispiele (22.11.): Pillen wie der Vorher/Nachher-Umschalter; alle Beispiele in EINER Rasterzelle (Höhe = größtes ->
+   Umschalten ohne Layout-Sprung), nicht gewähltes unsichtbar + inert (JS). Ohne JS nur das erste Beispiel, keine Pillen. */
+.rv-bsp{display:flex;justify-content:center;gap:4px;width:max-content;max-width:100%;margin:20px auto 0;padding:5px;border-radius:999px;
+ background:var(--card);border:1px solid var(--line2)}
+.rv-bsp button{min-height:44px;min-width:44px;padding:0 20px;border:0;border-radius:999px;font:inherit;font-size:15px;font-weight:700;
+ color:var(--muted);background:transparent;cursor:pointer;transition:background-color .2s,color .2s}
+.rv-bsp button[aria-pressed=true]{color:var(--text);background:var(--bg);box-shadow:0 1px 3px rgba(0,0,0,.18),0 0 0 1px var(--line2)}
+.rv-bsp button:focus-visible{outline:2px solid var(--red2);outline-offset:3px}
+.rv-st{display:grid}
+.rv-x{grid-area:1/1;min-width:0}
+.rv-x:not(.an){visibility:hidden;opacity:0;pointer-events:none}
+html:not(.js) .rv-bsp,html:not(.js) .rv-x:not(.an){display:none}
 .rv-h{margin:6px 0 0;font-size:clamp(28px,4.2vw,44px);font-weight:800;letter-spacing:-.035em;line-height:1.08}
 .rv-b{display:grid;justify-items:center;gap:18px;margin:40px auto 0;max-width:560px}
 /* Rahmen so groß, dass Rahmen + Zeitleiste + Text + Umschalter zusammen auf den Bildschirm passen (svh = sichtbare Höhe am Handy) */
@@ -556,7 +598,7 @@ html:not(.js) .rv-et,html:not(.js) .rv-d,html:not(.js) .rv-u{display:none}
    über den Kartenrand angeschnitten (li overflow hidden), sehr geringer Kontrast (hell/dunkel getrennt), HINTER dem Text
    (eigener Stapelkontext der Karte, Zahl z-index -1 = über dem Kartengrund, unter dem Text). */
 .ablauf li{padding:30px 30px 32px;border-radius:18px;overflow:hidden;isolation:isolate;--ziffer:rgba(255,255,255,.075)}
-@media (prefers-color-scheme:light){.ablauf li{--ziffer:rgba(0,0,0,.06)}}
+@media (prefers-color-scheme:light){:where(html:not([data-th=dunkel])) .ablauf li{--ziffer:rgba(0,0,0,.06)}}:where(html[data-th=hell]) .ablauf li{--ziffer:rgba(0,0,0,.06)}
 .ablauf li::after{counter-increment:s;content:counter(s);position:absolute;z-index:-1;top:-34px;right:-12px;font-size:132px;font-weight:800;line-height:1;
  letter-spacing:-.06em;font-variant-numeric:tabular-nums;color:var(--ziffer);pointer-events:none}
 .ablauf li h3{margin-top:30px;padding-right:64px}
@@ -848,20 +890,17 @@ html:not(.js) .iphone .tts .fo:not(:first-child){display:none}
  100%{box-shadow:inset 0 0 0 1px var(--line3),0 0 0 0 rgba(232,52,74,0)}}
 @container (max-width:460px){.pr-z{grid-template-columns:32px minmax(0,1fr) auto 52px;gap:8px;padding:8px 6px}.pr-pl,.spark{display:none}.pr-ic{width:32px;height:32px}
  .pr-l{flex-wrap:wrap}.pr-such{flex-basis:100%}.pr-f{flex-wrap:wrap}}
-/* Zeitersparnis (Zusatz 10, 18.11.): EINE Karte, je Aufgabe 2 Balken (von Hand = grau, Spanne hell; AutoCutAI = rot), Summe,
-   Fußnote mit Quelle. Balken wachsen EINMAL beim Sichtbarwerden (.da vom Einblenden), ohne JS/„Weniger Bewegung“ fertig. */
-.zeit{max-width:760px;margin:48px auto 0;padding:28px 32px 26px;text-align:left}
-.zt-z+.zt-z{margin-top:24px;padding-top:22px;border-top:1px solid var(--line)}
-.zt-n{display:block;margin:0 0 12px;font-size:17px;font-weight:700;letter-spacing:-.01em}
-.zt-b+.zt-b{margin-top:12px}
-.zt-b small{display:block;margin-top:5px;font-size:14px;color:var(--muted)}
-.zt-bar{position:relative;display:block;height:12px;border-radius:6px;background:var(--inner)}
-.zt-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:6px;transform-origin:0 50%;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
-.zt-bar.hand i:first-child{width:calc(var(--b) * 100%);background:var(--line4)}
-.zt-bar.hand i+i{width:calc(var(--a) * 100%);background:var(--muted)}
-.zt-bar.ac i{width:calc(var(--a) * 100%);background:var(--red);transition-delay:.25s}
+/* Zeitersparnis (Zusatz 10, 18.11.; neu Mikail 22.11. „1000x besser“): EINE Karte. Oben die Hauptaussage groß (≈ 7 Std.
+   pro Monat gespart + Rechnung), darunter je Aufgabe Name · Balken · Wert auf EINER Achse. Von Hand = neutral grau (Spanne
+   heller), AutoCutAI = Markenrot; Text nie in Serienfarbe. Balken wachsen EINMAL beim Sichtbarwerden (.da vom Einblenden),
+   ohne JS/„Weniger Bewegung“ fertig. Endgültige Regeln stehen in ZEIT_CSS (nach Paket 3, überschreibt nichts Fremdes). */
+.zeit{max-width:760px;margin:48px auto 0;padding:30px 34px 28px;text-align:left}
+.zt-bar{position:relative;display:block;height:10px;border-radius:5px;background:var(--inner)}
+.zt-bar i{position:absolute;left:0;top:0;bottom:0;border-radius:5px;transform-origin:0 50%;transition:transform 1s cubic-bezier(.2,.7,.2,1)}
+.zt-bar.hand i:first-child{width:calc(var(--b) * 100%)}
+.zt-bar.hand i+i{width:calc(var(--a) * 100%)}
+.zt-bar.ac i{width:calc(var(--a) * 100%);transition-delay:.25s}
 .js .zeit:not(.da) .zt-bar i{transform:scaleX(0)}
-.zt-summe{margin:24px 0 0;font-size:16px;font-weight:600;line-height:1.5;color:var(--soft);text-wrap:pretty}
 /* Kostenvergleich (Punkt d): EINE Karte, zwei Seiten (Cutter-Beispiel grau, AutoCutAI rot), Annahmen direkt an jeder Zahl */
 .kosten{max-width:860px;margin:48px auto 0;padding:30px 34px 28px;text-align:left}
 .ko-m{margin:0 0 18px;font-size:15px;font-weight:600;line-height:1.45;color:var(--soft);text-align:center}
@@ -885,6 +924,26 @@ html:not(.js) .iphone .tts .fo:not(:first-child){display:none}
  color:var(--soft);background:var(--chip);border:1px solid var(--line2)}
 .zt-fuss{max-width:760px;margin:16px auto 0;font-size:14px;line-height:1.5;color:var(--dim);text-align:center;text-wrap:pretty}
 @media (max-width:600px){.zeit{padding:22px 18px 20px;margin-top:36px}}
+
+@media (min-width:901px){.top .wrap{display:grid;grid-template-columns:minmax(max-content,1fr) auto minmax(max-content,1fr)}
+ .top .wrap>.marke{justify-self:start}.top .wrap>.hnav{margin:0}.top .wrap>.hrechts{justify-self:end;margin-left:0}}
+.hnav a{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap}
+.hnav a.on{font-weight:500}
+.hnav .fest{display:inline}
+html[data-l="de"] .hnav .fest>[data-lang="en"],html[data-l="en"] .hnav .fest>[data-lang="de"]{display:none!important}
+
+/* Hell/Dunkel-Schalter: gleiche Bauart wie die Sprach-Pille; zeigt das Ziel (im Dunklen die Sonne, im Hellen den Mond) */
+.thema{display:inline-grid;place-items:center;min-height:44px;min-width:44px;padding:0;border-radius:10px;border:1px solid var(--line2);
+ background:transparent;color:var(--soft);cursor:pointer;transition:color .2s,background .2s,border-color .2s}
+.thema:hover{color:var(--text);background:var(--hover);border-color:var(--line3)}
+.thema:focus-visible{outline:2px solid var(--red2);outline-offset:2px}
+/* Wechsel (Mikail 22.11.): beide Symbole liegen übereinander; das alte dreht sich weg und blendet aus, das neue dreht sich ein
+   (0,3 s). „Weniger Bewegung“: harter Wechsel. Ausgeblendet = unsichtbar (visibility nach der Blende), nie zwei halb. */
+.thema svg{grid-area:1/1;width:18px;height:18px;transition:opacity .3s ease,transform .3s cubic-bezier(.2,.7,.2,1),visibility 0s}
+.thema svg:first-child{opacity:0;visibility:hidden;transform:rotate(-90deg) scale(.55);transition:opacity .3s ease,transform .3s cubic-bezier(.2,.7,.2,1),visibility 0s .3s}
+.thema svg+svg{opacity:1;visibility:visible;transform:none}
+@media (prefers-color-scheme:light){:where(html:not([data-th=dunkel])) .thema svg:first-child{opacity:1;visibility:visible;transform:none;transition:opacity .3s ease,transform .3s cubic-bezier(.2,.7,.2,1),visibility 0s}:where(html:not([data-th=dunkel])) .thema svg+svg{opacity:0;visibility:hidden;transform:rotate(90deg) scale(.55);transition:opacity .3s ease,transform .3s cubic-bezier(.2,.7,.2,1),visibility 0s .3s}}:where(html[data-th=hell]) .thema svg:first-child{opacity:1;visibility:visible;transform:none;transition:opacity .3s ease,transform .3s cubic-bezier(.2,.7,.2,1),visibility 0s}:where(html[data-th=hell]) .thema svg+svg{opacity:0;visibility:hidden;transform:rotate(90deg) scale(.55);transition:opacity .3s ease,transform .3s cubic-bezier(.2,.7,.2,1),visibility 0s .3s}
+@media (prefers-reduced-motion:reduce){.thema svg,.thema svg:first-child,.thema svg+svg{transition:none!important}}
 
 .recht{display:grid;grid-template-columns:190px minmax(0,700px) 210px;gap:56px;justify-content:center;padding-top:72px;padding-bottom:120px}
 .rnav,.toc{position:sticky;top:96px;align-self:start}
@@ -927,7 +986,7 @@ html:not(.js) .iphone .tts .fo:not(:first-child){display:none}
 .weiter p{color:var(--muted);margin:14px 0 0}
 .weiter a{color:var(--redt)}
 .weiter-sozial{display:flex;justify-content:center;margin-top:18px}.weiter .sozial{margin:0}.weiter .sozial a{color:var(--muted)}
-</style></head><body><a class="skip" href="#inhalt"><span data-lang="de">Zum Inhalt springen</span><span data-lang="en">Skip to content</span></a><header class="top"><div class="wrap"><a class="marke" href="./" aria-label="AutoCutAI – Startseite"><img src="logo-192.png" alt="" width="36" height="36"><span>AutoCut<b>AI</b></span></a><nav class="hnav" aria-label="Abschnitte"><a href="./#funktionen"><span class="fest"><span data-lang="de">Funktionen</span><span data-lang="en">Features</span></span></a><a href="./#ablauf"><span class="fest"><span data-lang="de">So geht’s</span><span data-lang="en">How it works</span></span></a><a href="./#preise"><span class="fest"><span data-lang="de">Preise</span><span data-lang="en">Pricing</span></span></a><a href="./#faq">FAQ</a></nav><div class="hrechts"><div class="langwahl"><button class="lang" id="lang" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="langmenu" aria-label="Sprache: Deutsch – ändern"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 6h9M7.5 3.5V6"/><path d="M10.2 6c-.8 3.7-3 6.8-6.7 9"/><path d="M5.6 9.3c1.2 2.3 3.1 4 5.6 5.1"/><path d="M12.5 21l4.25-10 4.25 10M14.1 17.4h5.3"/></svg><span class="fest"><span data-lang="de"><svg class="fl" viewBox="0 0 5 3" width="20" height="12" aria-hidden="true" focusable="false"><path fill="#000" d="M0 0h5v1H0z"/><path fill="#DD0000" d="M0 1h5v1H0z"/><path fill="#FFCE00" d="M0 2h5v1H0z"/></svg>DE</span><span data-lang="en"><svg class="fl" viewBox="0 0 640 480" preserveAspectRatio="none" width="24" height="12" aria-hidden="true" focusable="false"><path fill="#012169" d="M0 0h640v480H0z"/><path fill="#fff" d="m75 0 244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0z"/><path fill="#C8102E" d="m424 281 216 159v40L369 281zm-184 20 6 35L54 480H0zM640 0v3L391 191l2-44L590 0zM0 0l239 176h-60L0 42z"/><path fill="#fff" d="M241 0v480h160V0zM0 160v160h640V160z"/><path fill="#C8102E" d="M0 193v96h640v-96zM273 0v480h96V0z"/></svg>EN</span></span></button><div class="langmenu" id="langmenu" hidden><button type="button" data-wahl="de" lang="de" aria-label="Deutsch"><svg class="fl" viewBox="0 0 5 3" width="20" height="12" aria-hidden="true" focusable="false"><path fill="#000" d="M0 0h5v1H0z"/><path fill="#DD0000" d="M0 1h5v1H0z"/><path fill="#FFCE00" d="M0 2h5v1H0z"/></svg>DE<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></button><button type="button" data-wahl="en" lang="en" aria-label="English"><svg class="fl" viewBox="0 0 640 480" preserveAspectRatio="none" width="24" height="12" aria-hidden="true" focusable="false"><path fill="#012169" d="M0 0h640v480H0z"/><path fill="#fff" d="m75 0 244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0z"/><path fill="#C8102E" d="m424 281 216 159v40L369 281zm-184 20 6 35L54 480H0zM640 0v3L391 191l2-44L590 0zM0 0l239 176h-60L0 42z"/><path fill="#fff" d="M241 0v480h160V0zM0 160v160h640V160z"/><path fill="#C8102E" d="M0 193v96h640v-96zM273 0v480h96V0z"/></svg>EN<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></button></div></div><a class="btn klein" href="./#early-access"><span class="fest"><span data-lang="de">Early Access</span><span data-lang="en">Early access</span></span></a></div></div></header><main id="inhalt"><div class="wrap recht"><nav class="rnav" aria-label="Rechtliches"><p><span data-lang="de">Rechtliches</span><span data-lang="en">Legal</span></p><ul><li><a href="privacy"><span data-lang="de">Datenschutz</span><span data-lang="en">Privacy Policy</span></a></li><li><a href="terms"><span data-lang="de">Nutzungsbedingungen</span><span data-lang="en">Terms of Service</span></a></li><li><a href="imprint" aria-current=page><span data-lang="de">Impressum</span><span data-lang="en">Imprint</span></a></li></ul></nav><div><article class="doc" data-lang="de"><section class="panel" data-lang="de"><div class="eyebrow">Rechtliches</div><h1>Impressum</h1><p class="sub">Angaben gemäß § 5 DDG</p><div class="items"><div class="item" id="de-1"><div><div class="lbl">Betreiber</div><div class="val"><p>Mikail Gül</p><p class=small>handelnd unter „Mikail Gül - Onlinehandel“</p></div></div></div><div class="item" id="de-2"><div><div class="lbl">Kontakt</div><div class="val"><p class="mono"><a href="mailto:support@autocutai.de">support@autocutai.de</a></p></div></div></div><div class="item" id="de-3"><div><div class="lbl">Anschrift</div><div class="val"><p>Amselweg 13<br>89431 Bächingen an der Brenz<br>Deutschland</p></div></div></div><div class="item" id="de-4"><div><div class="lbl">Verantwortlich nach § 18 Abs. 2 MStV</div><div class="val"><p>Mikail Gül</p><p class=small>Anschrift wie oben</p></div></div></div><div class="item" id="de-5"><div><div class="lbl">Verbraucherstreitbeilegung</div><div class="val"><p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p></div></div></div></div></section></article><article class="doc" data-lang="en" lang="en"><section class="panel" data-lang="en"><div class="eyebrow">Legal</div><h1>Imprint</h1><p class="sub">Information pursuant to § 5 DDG (German law)</p><div class="items"><div class="item" id="en-1"><div><div class="lbl">Operator</div><div class="val"><p>Mikail Gül – Mikail Gül - Onlinehandel</p></div></div></div><div class="item" id="en-2"><div><div class="lbl">Address</div><div class="val"><p>Amselweg 13, 89431 Bächingen an der Brenz, Germany</p></div></div></div><div class="item" id="en-3"><div><div class="lbl">Contact</div><div class="val"><p class="mono"><a href="mailto:support@autocutai.de">support@autocutai.de</a></p></div></div></div></div></section></article></div><span></span></div></main><footer class="fuss"><div class="wrap"><a class="marke" href="./"><img src="logo-192.png" alt="" width="36" height="36"><span>AutoCut<b>AI</b></span></a><nav aria-label="Rechtliches"><a href="imprint"><span data-lang="de">Impressum</span><span data-lang="en">Imprint</span></a><a href="privacy"><span data-lang="de">Datenschutz</span><span data-lang="en">Privacy Policy</span></a><a href="terms"><span data-lang="de">Nutzungsbedingungen</span><span data-lang="en">Terms of Service</span></a><a href="mailto:support@autocutai.de"><span data-lang="de">Kontakt</span><span data-lang="en">Contact</span></a></nav><div class="sozial"><a href="https://www.tiktok.com/@autocutai" target="_blank" rel="noopener noreferrer" aria-label="AutoCutAI auf TikTok" data-aria-de="AutoCutAI auf TikTok" data-aria-en="AutoCutAI on TikTok"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M16.6 2h-3.3v13.2a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9a6.3 6.3 0 1 0 5.3 6.2V8.6a7.9 7.9 0 0 0 4.4 1.4V6.7a4.6 4.6 0 0 1-4.4-4.7z"/></svg></a><a href="https://www.instagram.com/autocutai_/" target="_blank" rel="noopener noreferrer" aria-label="AutoCutAI auf Instagram" data-aria-de="AutoCutAI auf Instagram" data-aria-en="AutoCutAI on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="5.2"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></a></div><p class="betr"><span>© 2026 Mikail Gül</span> · <span data-lang="de">AutoCutAI ist ein Angebot von Mikail Gül - Onlinehandel.</span><span data-lang="en">AutoCutAI is offered by Mikail Gül - Onlinehandel.</span> <span data-lang="de">Unabhängige App, nicht von TikTok betrieben. TikTok und TikTok Shop sind Marken ihrer jeweiligen Inhaber.</span><span data-lang="en">Independent app, not operated by TikTok. TikTok and TikTok Shop are trademarks of their respective owners.</span></p></div></footer><script>(function(){var t=document.querySelectorAll('.toc a');if(!t.length||!('IntersectionObserver' in window))return;
+</style></head><body><a class="skip" href="#inhalt"><span data-lang="de">Zum Inhalt springen</span><span data-lang="en">Skip to content</span></a><header class="top"><div class="wrap"><a class="marke" href="./" aria-label="AutoCutAI – Startseite"><img src="logo-192.png" alt="" width="36" height="36"><span>AutoCut<b>AI</b></span></a><nav class="hnav" aria-label="Abschnitte"><a href="./#funktionen"><span class="fest"><span data-lang="de">Funktionen</span><span data-lang="en">Features</span></span></a><a href="./#ablauf"><span class="fest"><span data-lang="de">So geht’s</span><span data-lang="en">How it works</span></span></a><a href="./#preise"><span class="fest"><span data-lang="de">Preise</span><span data-lang="en">Pricing</span></span></a><a href="./#faq">FAQ</a></nav><div class="hrechts"><button type="button" class="thema" aria-label="Dunkles Design einschalten" data-aria-de="Dunkles Design einschalten" data-aria-en="Switch to dark mode" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9.79 3A9.16 9.16 0 1 0 21 14.21A8.24 8.24 0 0 1 9.79 3z" fill="currentColor" stroke="none"/></svg><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><g stroke-width="2"><circle cx="12" cy="12" r="3.5"/><path d="M18.5 12H20M16.6 7.4l1.06-1.06M12 5.5V4M7.4 7.4 6.34 6.34M5.5 12H4M7.4 16.6l-1.06 1.06M12 18.5V20M16.6 16.6l1.06 1.06"/></g></svg></button><div class="langwahl"><button class="lang" id="lang" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="langmenu" aria-label="Sprache: Deutsch – ändern"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3 6h9M7.5 3.5V6"/><path d="M10.2 6c-.8 3.7-3 6.8-6.7 9"/><path d="M5.6 9.3c1.2 2.3 3.1 4 5.6 5.1"/><path d="M12.5 21l4.25-10 4.25 10M14.1 17.4h5.3"/></svg><span class="fest"><span data-lang="de"><svg class="fl" viewBox="0 0 5 3" width="20" height="12" aria-hidden="true" focusable="false"><path fill="#000" d="M0 0h5v1H0z"/><path fill="#DD0000" d="M0 1h5v1H0z"/><path fill="#FFCE00" d="M0 2h5v1H0z"/></svg>DE</span><span data-lang="en"><svg class="fl" viewBox="0 0 640 480" preserveAspectRatio="none" width="24" height="12" aria-hidden="true" focusable="false"><path fill="#012169" d="M0 0h640v480H0z"/><path fill="#fff" d="m75 0 244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0z"/><path fill="#C8102E" d="m424 281 216 159v40L369 281zm-184 20 6 35L54 480H0zM640 0v3L391 191l2-44L590 0zM0 0l239 176h-60L0 42z"/><path fill="#fff" d="M241 0v480h160V0zM0 160v160h640V160z"/><path fill="#C8102E" d="M0 193v96h640v-96zM273 0v480h96V0z"/></svg>EN</span></span></button><div class="langmenu" id="langmenu" hidden><button type="button" data-wahl="de" lang="de" aria-label="Deutsch"><svg class="fl" viewBox="0 0 5 3" width="20" height="12" aria-hidden="true" focusable="false"><path fill="#000" d="M0 0h5v1H0z"/><path fill="#DD0000" d="M0 1h5v1H0z"/><path fill="#FFCE00" d="M0 2h5v1H0z"/></svg>DE<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></button><button type="button" data-wahl="en" lang="en" aria-label="English"><svg class="fl" viewBox="0 0 640 480" preserveAspectRatio="none" width="24" height="12" aria-hidden="true" focusable="false"><path fill="#012169" d="M0 0h640v480H0z"/><path fill="#fff" d="m75 0 244 181L562 0h78v62L400 241l240 178v61h-80L320 301 81 480H0v-60l239-178L0 64V0z"/><path fill="#C8102E" d="m424 281 216 159v40L369 281zm-184 20 6 35L54 480H0zM640 0v3L391 191l2-44L590 0zM0 0l239 176h-60L0 42z"/><path fill="#fff" d="M241 0v480h160V0zM0 160v160h640V160z"/><path fill="#C8102E" d="M0 193v96h640v-96zM273 0v480h96V0z"/></svg>EN<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg></button></div></div><a class="btn klein" href="./#early-access"><span class="fest"><span data-lang="de">Early Access</span><span data-lang="en">Early access</span></span></a></div></div></header><main id="inhalt"><div class="wrap recht"><nav class="rnav" aria-label="Rechtliches"><p><span data-lang="de">Rechtliches</span><span data-lang="en">Legal</span></p><ul><li><a href="privacy"><span data-lang="de">Datenschutz</span><span data-lang="en">Privacy Policy</span></a></li><li><a href="terms"><span data-lang="de">Nutzungsbedingungen</span><span data-lang="en">Terms of Service</span></a></li><li><a href="imprint" aria-current=page><span data-lang="de">Impressum</span><span data-lang="en">Imprint</span></a></li></ul></nav><div><article class="doc" data-lang="de"><section class="panel" data-lang="de"><div class="eyebrow">Rechtliches</div><h1>Impressum</h1><p class="sub">Angaben gemäß § 5 DDG</p><div class="items"><div class="item" id="de-1"><div><div class="lbl">Betreiber</div><div class="val"><p>Mikail Gül</p><p class=small>handelnd unter „Mikail Gül - Onlinehandel“</p></div></div></div><div class="item" id="de-2"><div><div class="lbl">Kontakt</div><div class="val"><p class="mono"><a href="mailto:support@autocutai.de">support@autocutai.de</a></p></div></div></div><div class="item" id="de-3"><div><div class="lbl">Anschrift</div><div class="val"><p>Amselweg 13<br>89431 Bächingen an der Brenz<br>Deutschland</p></div></div></div><div class="item" id="de-4"><div><div class="lbl">Verantwortlich nach § 18 Abs. 2 MStV</div><div class="val"><p>Mikail Gül</p><p class=small>Anschrift wie oben</p></div></div></div><div class="item" id="de-5"><div><div class="lbl">Verbraucherstreitbeilegung</div><div class="val"><p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p></div></div></div></div></section></article><article class="doc" data-lang="en" lang="en"><section class="panel" data-lang="en"><div class="eyebrow">Legal</div><h1>Imprint</h1><p class="sub">Information pursuant to § 5 DDG (German law)</p><div class="items"><div class="item" id="en-1"><div><div class="lbl">Operator</div><div class="val"><p>Mikail Gül – Mikail Gül - Onlinehandel</p></div></div></div><div class="item" id="en-2"><div><div class="lbl">Address</div><div class="val"><p>Amselweg 13, 89431 Bächingen an der Brenz, Germany</p></div></div></div><div class="item" id="en-3"><div><div class="lbl">Contact</div><div class="val"><p class="mono"><a href="mailto:support@autocutai.de">support@autocutai.de</a></p></div></div></div></div></section></article></div><span></span></div></main><footer class="fuss"><div class="wrap"><a class="marke" href="./"><img src="logo-192.png" alt="" width="36" height="36"><span>AutoCut<b>AI</b></span></a><nav aria-label="Rechtliches"><a href="imprint"><span data-lang="de">Impressum</span><span data-lang="en">Imprint</span></a><a href="privacy"><span data-lang="de">Datenschutz</span><span data-lang="en">Privacy Policy</span></a><a href="terms"><span data-lang="de">Nutzungsbedingungen</span><span data-lang="en">Terms of Service</span></a><a href="mailto:support@autocutai.de"><span data-lang="de">Kontakt</span><span data-lang="en">Contact</span></a></nav><div class="sozial"><a href="https://www.tiktok.com/@autocutai" target="_blank" rel="noopener noreferrer" aria-label="AutoCutAI auf TikTok" data-aria-de="AutoCutAI auf TikTok" data-aria-en="AutoCutAI on TikTok"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path d="M16.6 2h-3.3v13.2a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9a6.3 6.3 0 1 0 5.3 6.2V8.6a7.9 7.9 0 0 0 4.4 1.4V6.7a4.6 4.6 0 0 1-4.4-4.7z"/></svg></a><a href="https://www.instagram.com/autocutai_/" target="_blank" rel="noopener noreferrer" aria-label="AutoCutAI auf Instagram" data-aria-de="AutoCutAI auf Instagram" data-aria-en="AutoCutAI on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.9"><rect x="3" y="3" width="18" height="18" rx="5.2"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg></a></div><p class="betr"><span>© 2026 Mikail Gül</span> · <span data-lang="de">AutoCutAI ist ein Angebot von Mikail Gül - Onlinehandel.</span><span data-lang="en">AutoCutAI is offered by Mikail Gül - Onlinehandel.</span> <span data-lang="de">Unabhängige App, nicht von TikTok betrieben. TikTok und TikTok Shop sind Marken ihrer jeweiligen Inhaber.</span><span data-lang="en">Independent app, not operated by TikTok. TikTok and TikTok Shop are trademarks of their respective owners.</span></p></div></footer><script>(function(){var t=document.querySelectorAll('.toc a');if(!t.length||!('IntersectionObserver' in window))return;
 var m={};[].forEach.call(t,function(a){m[a.getAttribute('href').slice(1)]=a});
 var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){var a=m[e.target.id];if(!a)return;
 [].forEach.call(t,function(x){x.classList.toggle('an',x===a)});}})},{rootMargin:'-90px 0px -65% 0px'});
@@ -1237,26 +1296,35 @@ if(nl.length&&'IntersectionObserver' in window){
   var an=[].slice.call(r.querySelectorAll('img.kb')).map(function(i){return i.getAnimations?i.getAnimations()[0]:null}).filter(Boolean);
   if(an.length===2&&an[0].startTime!==null)an[1].startTime=an[0].startTime;
 });
-/* Early-Access-Formular (Nutzer 17.11. ~18:05). data-modus: „mailto“ (noch kein Server: vorausgefüllte E-Mail + ehrlicher
-   Hinweis), „senden“ (data-ziel: fetch POST {email, neuigkeiten, sprache}, dann „Bitte bestätige deine E-Mail“), „vorschau“
-   (nur Vorschau-Datei: Erfolg zeigen, nichts senden). Öffnen der mailto-Adresse über window.acOeffne (Test fängt es ab). */
+/* Early-Access-Formular (Nutzer 17.11. ~18:05; Supabase seit 22.11.). data-modus: „senden“ (data-ziel = Supabase-Function:
+   fetch POST {email, neuigkeiten, sprache, website}; 200 -> „Bitte bestätige deine E-Mail“, 400 -> Adresse prüfen, 429 -> zu
+   viele Anmeldungen, sonst/Netz/15 s -> nochmal versuchen; alles im selben Kasten), „mailto“ (Notweg ohne Server: vorausgefüllte
+   E-Mail + ehrlicher Hinweis), „vorschau“ (nur Vorschau-Datei: Erfolg zeigen, nichts senden). Nie doppelt: solange eine Anfrage
+   läuft, wird jedes weitere Absenden verworfen (Knopf aus + aria-busy). Honigtopf (#ea-feld-7, Schlüssel „website“) gefüllt (Bot) -> nichts senden,
+   Erfolg zeigen. Öffnen der mailto-Adresse über window.acOeffne (Test fängt es ab). */
 (function(){   /* eigener Bereich: Namen (zeig, ok …) dürfen die Einblend-Funktion oben nicht überschreiben */
 var fm=document.getElementById('ea-form');
-if(fm){var em=document.getElementById('ea-mail'),nw=document.getElementById('ea-news'),fe=document.getElementById('ea-fehler'),fk=fm.querySelector('.ea-felder'),fb=fm.querySelector('button[type=submit]');
+if(fm){var em=document.getElementById('ea-mail'),nw=document.getElementById('ea-news'),fe=document.getElementById('ea-fehler'),fk=fm.querySelector('.ea-felder'),fb=fm.querySelector('button[type=submit]'),hp=document.getElementById('ea-feld-7'),laeuft=false;
   var T=function(de,en){return '<span data-lang="de">'+de+'</span><span data-lang="en" lang="en">'+en+'</span>'};
   var ok=function(v){return /^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(v)};
   var fehl=function(h){fe.innerHTML=h||'';em.setAttribute('aria-invalid',h?'true':'false')};
   var zeig=function(id){fk.hidden=true;var o=document.getElementById(id);o.hidden=false;o.focus({preventScroll:true})};
+  var frei=function(){laeuft=false;fb.disabled=false;fb.removeAttribute('aria-busy')};
+  var MELD={400:['Diese Adresse können wir leider nicht annehmen – bitte prüf sie noch einmal (z. B. du@beispiel.de).','We can’t accept this address – please check it again (e.g. you@example.com).'],
+    429:['Gerade kommen sehr viele Anmeldungen von deinem Internetanschluss. Bitte versuch es in einer Stunde noch einmal.','There are a lot of sign-ups from your internet connection right now. Please try again in an hour.'],
+    0:['Das hat leider nicht geklappt – bitte versuch es gleich noch einmal.','That didn’t work – please try again in a moment.']};
   em.addEventListener('input',function(){if(em.getAttribute('aria-invalid')==='true'&&ok(em.value.trim()))fehl('')});
-  fm.addEventListener('submit',function(e){e.preventDefault();var v=em.value.trim();
+  fm.addEventListener('submit',function(e){e.preventDefault();if(laeuft)return;var v=em.value.trim();
     if(!v){fehl(T('Bitte gib deine E-Mail-Adresse ein.','Please enter your email address.'));em.focus();return}
     if(!ok(v)){fehl(T('Das sieht nicht nach einer E-Mail-Adresse aus – bitte prüf sie noch einmal (z. B. du@beispiel.de).','That doesn’t look like an email address – please check it (e.g. you@example.com).'));em.focus();return}
     fehl('');var l=d.getAttribute('data-l')==='en'?'en':'de',modus=fm.getAttribute('data-modus'),ziel=fm.getAttribute('data-ziel');
-    if(modus==='vorschau'){zeig('ea-ok');return}
-    if(modus==='senden'&&ziel){fb.disabled=true;
-      fetch(ziel,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:v,neuigkeiten:nw.checked,sprache:l})})
-        .then(function(r){if(!r.ok)throw new Error(r.status);zeig('ea-ok')})
-        .catch(function(){fb.disabled=false;fehl(T('Das hat leider nicht geklappt – bitte versuch es gleich noch einmal.','That didn’t work – please try again in a moment.'))});return}
+    if(modus==='vorschau'||(hp&&hp.value)){zeig('ea-ok');return}
+    if(modus==='senden'&&ziel){laeuft=true;fb.disabled=true;fb.setAttribute('aria-busy','true');
+      var ab=window.AbortController?new AbortController():null,uhr=setTimeout(function(){if(ab)ab.abort()},15000);
+      fetch(ziel,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:v,neuigkeiten:nw.checked,sprache:l,website:hp?hp.value:''}),
+                  signal:ab?ab.signal:undefined,credentials:'omit',referrerPolicy:'strict-origin'})
+        .then(function(r){clearTimeout(uhr);if(r.ok){zeig('ea-ok');return}var t=MELD[r.status]||MELD[0];frei();fehl(T(t[0],t[1]));if(r.status===400)em.focus()})
+        .catch(function(){clearTimeout(uhr);frei();fehl(T(MELD[0][0],MELD[0][1]))});return}
     var t=l==='en'?'Hi,\n\nplease add me to the AutoCutAI early access list.\n\nEmail: '+v+'\nNews by email: '+(nw.checked?'yes':'no')+'\n\nBest regards\n'
                   :'Hallo,\n\nbitte tragt mich in die Early-Access-Liste von AutoCutAI ein.\n\nE-Mail: '+v+'\nNeuigkeiten per E-Mail: '+(nw.checked?'ja':'nein')+'\n\nViele Grüße\n';
     var u='mailto:'+fm.getAttribute('data-mail')+'?subject='+encodeURIComponent('Early Access')+'&body='+encodeURIComponent(t);
@@ -1267,7 +1335,15 @@ var pr=document.querySelector('.preise');
   pr.setAttribute('data-abr',b.getAttribute('data-abr'));
   [].forEach.call(document.querySelectorAll('.umschalter button'),function(x){x.setAttribute('aria-pressed',x===b?'true':'false')});
 });});
-})();</script><script>(function(){
+})();
+/* Hell/Dunkel-Schalter (Paket 3): Klick -> Wahl merken + sofort umschalten; Beschriftung passend zum nächsten Klick */
+(function(){var k=document.querySelector('.thema'),T=window.ACThema;if(!k||!T)return;
+  function text(){var h=T.matches,de=h?'Dunkles Design einschalten':'Helles Design einschalten',en=h?'Switch to dark mode':'Switch to light mode';
+    k.setAttribute('data-aria-de',de);k.setAttribute('data-aria-en',en);k.setAttribute('aria-label',document.documentElement.getAttribute('data-l')==='en'?en:de);
+    k.setAttribute('aria-pressed',String(!h))}
+  k.addEventListener('click',function(){T.wechsel()});T.addEventListener('change',text);text();
+  if(window.MutationObserver)new MutationObserver(text).observe(document.documentElement,{attributes:true,attributeFilter:['data-l']});})();
+</script><script>(function(){
 var aus=/^(seite-|start$)/,still=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function el(id){try{return document.getElementById(decodeURIComponent(id))}catch(x){return null}}
 function sicht(e){return !!(e&&e.getClientRects().length)}
