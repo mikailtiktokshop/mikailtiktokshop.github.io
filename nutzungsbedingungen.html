@@ -371,18 +371,44 @@ section{padding:120px 0}
    Danach Umschalter Vorher/Nachher. Bewegung nur über left/width/opacity der kleinen Leiste; bei „Weniger Bewegung“ keine. */
 .rv{margin:8px auto 0;padding:0 0 96px;max-width:860px}
 .rv .mitte{max-width:640px}
-/* Mehrere Beispiele (22.11.): Pillen wie der Vorher/Nachher-Umschalter; alle Beispiele in EINER Rasterzelle (Höhe = größtes ->
-   Umschalten ohne Layout-Sprung), nicht gewähltes unsichtbar + inert (JS). Ohne JS nur das erste Beispiel, keine Pillen. */
-.rv-bsp{display:flex;justify-content:center;gap:4px;width:max-content;max-width:100%;margin:20px auto 0;padding:5px;border-radius:999px;
- background:var(--card);border:1px solid var(--line2)}
-.rv-bsp button{min-height:44px;min-width:44px;padding:0 20px;border:0;border-radius:999px;font:inherit;font-size:15px;font-weight:700;
- color:var(--muted);background:transparent;cursor:pointer;transition:background-color .2s,color .2s}
-.rv-bsp button[aria-pressed=true]{color:var(--text);background:var(--bg);box-shadow:0 1px 3px rgba(0,0,0,.18),0 0 0 1px var(--line2)}
-.rv-bsp button:focus-visible{outline:2px solid var(--red2);outline-offset:3px}
+/* Mehrere Beispiele (22.11.): alle Beispiele in EINER Rasterzelle (Höhe = größtes -> Umschalten ohne Layout-Sprung), nicht
+   gewähltes unsichtbar + inert (JS). Ohne JS nur das erste Beispiel, keine Pfeile. Umschalten (Mikail 22.11. nachm. „Pfeile, sehr
+   clean“): zwei runde Pfeil-Knöpfe (dünne Linien, 44 px, ruhige Karte, feiner Rand) – ab 640 px links/rechts NEBEN dem iPhone
+   (senkrecht mittig), darunter Beschriftung „Beispiel 1 von 2 · …“ + Punkte; am Handy alles in einer Zeile UNTER dem iPhone
+   (nie über dem Video). Kreide-Notizen bleiben am alten Abstand, ihre mittlere Reihe rutscht unter die Pfeile (kein Überlauf 761 px). */
 .rv-st{display:grid}
 .rv-x{grid-area:1/1;min-width:0}
 .rv-x:not(.an){visibility:hidden;opacity:0;pointer-events:none}
-html:not(.js) .rv-bsp,html:not(.js) .rv-x:not(.an){display:none}
+html:not(.js) .rv-nav,html:not(.js) .rv-noch,html:not(.js) .rv-x:not(.an){display:none}
+.rv-nav{display:flex;align-items:center;justify-content:center;gap:12px;width:min(100%,340px)}
+.rv-nr{flex:1;min-width:0;margin:0;display:grid;justify-items:center;gap:7px;font-size:14px;font-weight:600;line-height:1.3;
+ color:var(--muted);text-align:center;font-variant-numeric:tabular-nums}
+.rv-pk{display:flex;gap:6px}
+.rv-pk i{width:6px;height:6px;border-radius:50%;background:var(--line2)}
+.rv-pk i.an{background:var(--text)}
+.rv-pf{flex:none;width:44px;height:44px;display:grid;place-items:center;padding:0;border-radius:50%;border:1px solid var(--line2);
+ background:var(--card);color:var(--text);cursor:pointer;box-shadow:0 1px 2px rgba(0,0,0,.06);
+ transition:border-color .2s,background-color .2s,transform .15s}
+.rv-pf svg{width:20px;height:20px}
+.rv-pf:hover{border-color:var(--muted)}
+.rv-pf:active{transform:scale(.94)}
+.rv-pf:focus-visible,.rv-noch:focus-visible{outline:2px solid var(--red2);outline-offset:3px}
+@media (min-width:640px){
+ .rv-nav{width:auto}
+ .rv-pf{position:absolute;z-index:3;top:calc(var(--rv-ih,var(--rwk) * 2.0923) / 2 - 22px)}
+ .rv-pf.l{right:calc(50% + var(--rwk) / 2 + 20px)}
+ .rv-pf.r{left:calc(50% + var(--rwk) / 2 + 20px)}
+}
+.rv-noch{display:flex;align-items:center;gap:8px;margin:30px auto 0;min-height:44px;padding:0 18px;border:0;border-radius:999px;
+ background:none;font:inherit;font-size:16px;font-weight:650;color:var(--text);cursor:pointer}
+.rv-noch svg{width:18px;height:18px;transition:transform .2s}
+.rv-noch:hover>span{text-decoration:underline;text-underline-offset:4px}
+.rv-noch:hover svg{transform:translateX(3px)}
+@keyframes rvGlR{from{opacity:0;transform:translateX(32px)}to{opacity:1;transform:none}}
+@keyframes rvGlL{from{opacity:0;transform:translateX(-32px)}to{opacity:1;transform:none}}
+.rv-x.gl-r{animation:rvGlR .4s cubic-bezier(.2,.7,.2,1)}
+.rv-x.gl-l{animation:rvGlL .4s cubic-bezier(.2,.7,.2,1)}
+@media (prefers-reduced-motion:reduce){.rv-x.gl-r,.rv-x.gl-l{animation:none!important}.rv-noch svg,.rv-pf{transition:none}}
 .rv-h{margin:6px 0 0;font-size:clamp(28px,4.2vw,44px);font-weight:800;letter-spacing:-.035em;line-height:1.08}
 .rv-b{display:grid;justify-items:center;gap:18px;margin:40px auto 0;max-width:560px}
 /* Rahmen so groß, dass Rahmen + Zeitleiste + Text + Umschalter zusammen auf den Bildschirm passen (svh = sichtbare Höhe am Handy) */
@@ -399,6 +425,9 @@ html:not(.js) .rv-et,html:not(.js) .rv-d,html:not(.js) .rv-u{display:none}
 .rv-et{top:12px;left:12px;max-width:calc(100% - 24px);overflow:hidden;text-overflow:ellipsis}
 .rv-d{left:12px;bottom:14px;font-variant-numeric:tabular-nums}
 .rv-et .e-n{display:none}
+/* Fable 22.11.: Schild im iPhone nie mit „…“ – passt es nicht in die Innenbreite (kleines iPhone, 360 px / niedrige Fenster), fällt
+   der Zusatz („ · geschnitten“, „ · roh“, „ · fertig“) weg (Skript setzt .kurz), Schrift bleibt ≥ 14 px */
+.rv-et.kurz .e-z{display:none}
 .rv-b[data-ph=nachher] .rv-et .e-v{display:none}.rv-b[data-ph=nachher] .rv-et .e-n{display:inline}
 .rv-b[data-ph=nachher] .rv-et{background:rgba(15,110,68,.88)}
 .rv-k{display:none;position:absolute;right:12px;bottom:10px;z-index:2;min-height:44px;padding:0 16px 0 13px;border:0;border-radius:999px;
