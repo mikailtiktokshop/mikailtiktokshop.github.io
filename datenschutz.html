@@ -930,6 +930,17 @@ html:not(.js) .iphone .tts .fo:not(:first-child){display:none}
  color:var(--soft);background:var(--chip);border:1px solid var(--line2)}
 .zt-fuss{max-width:760px;margin:16px auto 0;font-size:14px;line-height:1.5;color:var(--dim);text-align:center;text-wrap:pretty}
 @media (max-width:600px){.zeit{padding:22px 18px 20px;margin-top:36px}}
+/* Mikail 22.11. abends („wenn ich hier drauf klicke, kopiert er Text“, ablauf-tiktok.md „KLICK AUF „WIE GEMESSEN?“ … MARKIERT KEINEN
+   TEXT“): ALLE Bedienflächen (Aufklapper-Zeile summary, Knöpfe, Pfeile, Pillen, 1/2-Schalter, Abrechnungs-Schalter, Schieber, Knopf-Links)
+   markieren beim Klicken/Doppelklicken keinen Text, kein Tipp-Blitz am Handy, Zeiger = Hand. NUR die Bedienfläche – der aufgeklappte
+   Erklärtext (Geschwister der summary) bleibt markierbar. Aufklappen „Wie gemessen?“/„Alle Funktionen vergleichen“: Text blendet weich
+   ein (der Winkel bei „Wie gemessen?“ dreht schon); FAQ/Inhaltsverzeichnis-Winkel bleiben wie festgelegt SOFORT (Regel 18.11.).
+   „Weniger Bewegung“: globale Regel oben schaltet Animation ab = sofort. */
+summary,button,[role=slider],.btn,.btn2,.rv-nav,.rv-u,.umschalter{-webkit-user-select:none;user-select:none;-webkit-tap-highlight-color:transparent}
+summary,button,[role=slider],.btn,.btn2{cursor:pointer}
+button:disabled{cursor:default}
+:is(.zt-wie,.vergleich)[open]>:not(summary){animation:dt-auf .28s cubic-bezier(0,0,.2,1) both}
+@keyframes dt-auf{from{opacity:0;transform:translateY(-4px)}}
 
 .recht{display:grid;grid-template-columns:190px minmax(0,700px) 210px;gap:56px;justify-content:center;padding-top:72px;padding-bottom:120px}
 .rnav,.toc{position:sticky;top:96px;align-self:start}
