@@ -172,10 +172,11 @@ section{padding:120px 0}
 .app .rd{width:2.93em;height:2.93em;border-radius:50%;border:1px solid var(--line2);background:var(--card);display:grid;place-items:center;color:var(--text)}
 .app .rd svg{width:1.33em;height:1.33em}
 .app .ac{display:flex;align-items:center;gap:.6em;height:2.93em;padding:0 .8em 0 .4em;border:1px solid var(--line2);border-radius:999px;background:var(--card)}
-.app .ac .av{width:2em;height:2em;border-radius:50%;background:var(--chip);display:grid;place-items:center;color:var(--muted)}
-.app .ac .av svg{width:1.2em;height:1.2em}
+.app .ac .av{width:2.78em;height:2.78em;border-radius:50%;background:var(--chip);display:grid;place-items:center;font-size:.72em;font-weight:700;color:var(--text)}
+/* Konto-Pille wie im echten Studio (Mikail 23.11. „genau wie in echt“): Kürzel „DK“ · „Dein Konto“ · grüner Punkt · „verbunden“ */
+.app .ac .an{font-size:.97em;font-weight:700}   /* Stil am Eltern-Element, nie an den Sprach-Spans */
 .app .ac .pt{width:.53em;height:.53em;border-radius:50%;background:#3DD68C}
-.app .ac span:not([data-lang]){font-size:.87em;font-weight:600}
+.app .ac .vb{font-size:.87em;font-weight:500;color:var(--muted)}
 .app .ac>svg{width:1em;height:1em;color:var(--dim)}
 .app .inh{display:flex;flex-direction:column;gap:1.6em;padding:2.13em 6.13em 2.6em}
 .app .hl{display:flex;align-items:flex-end;gap:.8em}
@@ -232,8 +233,9 @@ section{padding:120px 0}
 .bew .fenster:is([data-ph=druck],[data-ph=gesendet],[data-ph=tts],[data-ph^=v]) .ordner3 .o.an{background:none;border-color:var(--line);box-shadow:none;color:var(--soft)}
 .bew .fenster:is([data-ph=druck],[data-ph=gesendet],[data-ph=tts],[data-ph^=v]) .ordner3 .o:last-child{background:var(--chip);border-color:transparent;box-shadow:inset 0 0 0 1px var(--line3);color:var(--text)}
 .fenster .maus{display:none}
-.bew .fenster .maus{display:block;position:absolute;left:0;top:0;z-index:5;width:22px;height:33px;pointer-events:none;
- transform:translate(var(--zx,-40px),var(--zy,-40px));transition:transform .9s cubic-bezier(.45,.05,.25,1)}
+.bew .fenster .maus{display:block;position:absolute;left:0;top:0;z-index:5;width:22px;height:33px;pointer-events:none;opacity:0;
+ transform:translate(var(--zx,-40px),var(--zy,-40px));transition:transform .9s cubic-bezier(.45,.05,.25,1),opacity .35s ease}
+.bew .fenster .maus.zg{opacity:1}   /* nur während einer Aktion sichtbar (Mikail 23.11.) */
 .bew .fenster .maus svg{display:block;width:100%;height:100%;filter:drop-shadow(0 1px 1.5px rgba(0,0,0,.35))}
 .bew .fenster .maus i{position:absolute;left:-9px;top:-9px;width:18px;height:18px;border-radius:50%;background:rgba(232,52,74,.35);
  box-shadow:0 0 0 2px rgba(232,52,74,.6);transform:scale(0);opacity:0;transition:transform .25s ease,opacity .25s ease}
@@ -274,6 +276,8 @@ section{padding:120px 0}
  color:#fff;box-shadow:0 1.2em 3.6em -1.4em rgba(0,0,0,.42),inset 0 0 0 .25em rgba(255,255,255,.06);
  font-family:-apple-system,BlinkMacSystemFont,'Plus Jakarta Sans',system-ui,sans-serif}
 .iphone .mt img{flex:none;width:9.2em;height:9.2em;border-radius:2.1em}
+.iphone .mt .mt-ic{flex:none;display:grid;place-items:center;width:9.2em;height:9.2em;border-radius:2.1em;background:#111114;color:#fff;box-shadow:inset 0 0 0 .2em rgba(255,255,255,.14)}
+.iphone .mt .mt-ic svg{width:5.4em;height:5.4em}
 .iphone .mt>span{flex:1;min-width:0}
 .iphone .mt .k{display:flex;justify-content:space-between;align-items:baseline;gap:2em;font-size:3.65em;line-height:1.3}
 .iphone .mt .k b{font-weight:600}
@@ -678,8 +682,8 @@ html:not(.js) .umschalter{display:none}
 .pk .pr .alt{color:var(--dim);font-size:22px;font-weight:500;letter-spacing:-.02em}
 .pk .pr .u{color:var(--muted);font-size:15px}
 .pk .pz{margin:8px 0 0;color:var(--dim);font-size:14px;min-height:1.5em}
-/* Probe-Zeit (Nutzer 17.11. ~18:05: „das mittlere Abo, monatlich, 3 Tage kostenlos“) – aus abo_plaene.json probe_tage_monat,
-   nur bei „Monatlich“ (.nm-) */
+/* Probe-Zeit (Nutzer 17.11.; seit 23.11. nur Plus JÄHRLICH 7 Tage) – aus abo_plaene.json probe_tage_jahr,
+   nur bei „Jährlich“ (.nj) */
 .pk .probe{display:flex;width:fit-content;align-items:center;gap:6px;margin:0 0 8px;padding:5px 10px 5px 8px;border-radius:8px;font-size:14px;font-weight:700;
  color:var(--ok);background:var(--okbg)}
 .pk .probe svg{width:16px;height:16px;flex:none}
@@ -1125,7 +1129,10 @@ var d=document.documentElement;
 [].forEach.call(document.querySelectorAll('.pr-k'),function(k){
   if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window))return;
   var qs=[].slice.call(k.querySelectorAll('.pr-q [data-voll]'));
-  k.setAttribute('data-st','0');qs.forEach(function(q){q.textContent=''});
+  /* Mikail 23.11. Punkt 6: Start OHNE Übergang – sonst blendet der Endzustand (Liste, Markierung, Pfeil) erst langsam aus und ist
+     sichtbar, bevor der Begriff getippt ist */
+  k.setAttribute('data-ohne','');k.setAttribute('data-st','0');qs.forEach(function(q){q.textContent=''});void k.offsetWidth;
+  requestAnimationFrame(function(){requestAnimationFrame(function(){k.removeAttribute('data-ohne')})});
   var io=new IntersectionObserver(function(es){if(!es.some(function(e){return e.isIntersecting}))return;io.disconnect();
     var n=0,max=Math.max.apply(null,qs.map(function(q){return q.getAttribute('data-voll').length}));
     function tipp(){n++;qs.forEach(function(q){q.textContent=q.getAttribute('data-voll').slice(0,n)});
